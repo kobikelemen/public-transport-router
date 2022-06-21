@@ -1,0 +1,7 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/kobikelemen/Documents/computing/coding/c++/public-transport-router'
+clang   -c bus_network.c 
+ 
+clang   -o main main.c bus_network.o useful.o
+make: Leaving directory `/Users/kobikelemen/Documents/computing/coding/c++/public-transport-router'
+ 
