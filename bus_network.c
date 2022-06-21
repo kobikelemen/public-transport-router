@@ -11,6 +11,11 @@ void append_buses(buses *bus_head, int bus)
 }
 
 
+
+
+
+// hash table
+
 int hash(char name[], int DICT_SIZE, int MAX_WORD)
 {
     int length = strnlen(name, MAX_WORD);
@@ -46,6 +51,25 @@ void print_dict(bucket * hash_table[], int DICT_SIZE)
         }
     }
     printf("\n\n");
+}
+
+
+void append_to_bucket(bucket * b, bucket * a)
+{
+    if (b->next == NULL) {
+        b->next = a;
+        return;
+    }
+    append_to_bucket(b->next, a);
+}
+
+
+bucket * find_in_bucket(bucket * b, char * busstop_name)
+{
+    if (b->b.name == busstop_name) {
+        return b;
+    }
+    find_in_bucket(b->b.name, busstop_name);
 }
 
 // tfl.gov.uk/tfl/syndication/feeds/bus-sequences.csv

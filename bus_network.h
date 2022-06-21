@@ -59,7 +59,8 @@ typedef struct bucket
 int hash(char name[], int DICT_SIZE, int MAX_WORD);
 void print_bucket(bucket* b);
 void print_dict(bucket * hash_table[], int DICT_SIZE);
-
+void append_to_bucket(bucket * b, bucket * a);
+bucket * find_in_bucket(bucket * b, char * busstop_name);
 
 
 #endif 

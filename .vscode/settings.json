@@ -2,6 +2,8 @@
     "files.associations": {
         "stdlib.h": "c",
         "stdio.h": "c",
-        "bus_network.h": "c"
+        "bus_network.h": "c",
+        "string": "c",
+        "*.tcc": "c"
     }
 }
