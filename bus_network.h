@@ -20,14 +20,14 @@ typedef struct buses
 
 // add to linked list
 void append_buses(struct buses *bus_head, int bus);
-
+void print_buses_at_busstop(buses * bu);
 
 
 // node of busstop graph
 typedef struct bus_stop 
 {
     char * name; 
-    struct buses bus_list;
+    struct buses * bus_list;
     struct bus_stop * neighbour;
     int northing;
     int easting;
@@ -47,8 +47,6 @@ typedef struct bus_network
 
 
 
-
-
 // hash table for bus stops
 typedef struct bucket
 {
@@ -56,11 +54,13 @@ typedef struct bucket
     struct bucket *next;
 } bucket;
 
+
 int hash(char name[], int DICT_SIZE, int MAX_WORD);
 void print_bucket(bucket* b);
 void print_dict(bucket * hash_table[], int DICT_SIZE);
 void append_to_bucket(bucket * b, bucket * a);
 bucket * find_in_bucket(bucket * b, char * busstop_name);
-
+void print_buses_at_busstop(buses * bu);
+void print_busstops(bucket * hashtable[], int DICT_SIZE);
 
 #endif 

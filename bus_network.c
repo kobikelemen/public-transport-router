@@ -10,6 +10,28 @@ void append_buses(buses *bus_head, int bus)
 
 }
 
+void print_buses_at_busstop(buses * bu)
+{
+    if (bu == NULL) {
+        return;
+    }
+    printf("%i ", bu->bus);
+    print_buses_at_busstop(bu->next);
+}
+
+
+void print_busstops(bucket * hashtable[], int DICT_SIZE)
+{
+    for (int i=0; i < DICT_SIZE; i++) {
+        printf("\n\n name: %s \n", hashtable[i]->b.name);
+        printf("buses: ");
+        print_buses_at_busstop(hashtable[i]->b.bus_list);
+        printf("\n");
+        // print neighbours to-do
+        printf("northling: %i\n", hashtable[i]->b.northing);
+        printf("easting: %i\n", hashtable[i]->b.easting);
+    }
+}
 
 
 
