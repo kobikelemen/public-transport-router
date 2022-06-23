@@ -31,19 +31,12 @@ int main()
     char *busstop_names_routes[len_routes];
 
     
-    printf(" YOOO 1\n");
     read_file(num_busstops, "bus_data/names.txt", &busstop_names, 1);
-    printf(" YOOO 69\n");
-    capitalise_text(num_busstops, &busstop_names);
-    printf(" YOOO 3\n");
     read_file(num_busstops, "bus_data/location_n.txt", &location_n, 0);
-    printf(" YOOO 4\n");
     read_file(num_busstops, "bus_data/location_e.txt", &location_e, 0);
-    printf(" YOOO 2\n");
     read_file(len_routes, "bus_sequences/route.txt", &routes, 0);
     read_file(len_routes, "bus_sequences/sequence.txt", &sequences, 0);
     read_file(len_routes, "bus_sequences/stop_name.txt", &busstop_names_routes, 1);
-    capitalise_text(len_routes, &busstop_names_routes);
 
     printf("\n\nbusstop names: \n");
     for (int i=0; i < num_busstops; i++ ) {
