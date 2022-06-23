@@ -4,6 +4,7 @@
         "stdio.h": "c",
         "bus_network.h": "c",
         "string": "c",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "random": "c"
     }
 }

@@ -23,13 +23,13 @@ void print_buses_at_busstop(buses * bu)
 void print_busstops(bucket * hashtable[], int DICT_SIZE)
 {
     for (int i=0; i < DICT_SIZE; i++) {
-        printf("\n\n name: %s \n", hashtable[i]->b.name);
+        printf("\n\n name: %s \n", hashtable[i]->b->name);
         printf("buses: ");
-        print_buses_at_busstop(hashtable[i]->b.bus_list);
+        print_buses_at_busstop(hashtable[i]->b->bus_list);
         printf("\n");
         // print neighbours to-do
-        printf("northling: %i\n", hashtable[i]->b.northing);
-        printf("easting: %i\n", hashtable[i]->b.easting);
+        printf("northling: %i\n", hashtable[i]->b->northing);
+        printf("easting: %i\n", hashtable[i]->b->easting);
     }
 }
 
@@ -52,10 +52,11 @@ int hash(char name[], int DICT_SIZE, int MAX_WORD)
 
 void print_bucket(bucket* buck)
 {
+    printf("YOO");
     if (buck == NULL) {
         return;
     }
-    printf("\t%s", buck->b.name);
+    printf("\t%s", buck->b->name);
     print_bucket(buck->next);
 }
 
@@ -76,22 +77,25 @@ void print_dict(bucket * hash_table[], int DICT_SIZE)
 }
 
 
-void append_to_bucket(bucket * b, bucket * a)
+void append_to_bucket(bucket ** b, bucket * a)
 {
-    if (b->next == NULL) {
-        b->next = a;
-        return;
-    }
-    append_to_bucket(b->next, a);
+    // printf("YOO");
+    printf("YOO %s\n",(*b)->b->name);
+
+    // if ((*b)->next == NULL) {
+    //     (*b)->next = a;
+    //     return;
+    // }
+    // append_to_bucket((*b)->next, a);
 }
 
 
 bucket * find_in_bucket(bucket * b, char * busstop_name)
 {
-    if (b->b.name == busstop_name) {
+    if (b->b->name == busstop_name) {
         return b;
     }
-    find_in_bucket(b->b.name, busstop_name);
+    find_in_bucket(b->b->name, busstop_name);
 }
 
 // tfl.gov.uk/tfl/syndication/feeds/bus-sequences.csv

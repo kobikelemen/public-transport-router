@@ -3,6 +3,17 @@
 
 
 
+/*
+
+TODO
+1. build bus route graph
+2. implement dijkstras on graph
+3. request bus times 
+
+*/
+
+
+
 int main()
 {
 
@@ -36,26 +47,34 @@ int main()
 
     int h = 0; 
     for (int i=0; i < num_busstops; i++) {  
-        bus_stop *b = malloc(sizeof(bus_stop));
-        b->northing = atoi(location_n[i]);
-        b->easting = atoi(location_e[i]);
-        b->name = busstop_names[i];
-        h = hash(b->name, DICT_SIZE, MAX_WORD);
-        if (busstop_hashtable[h] == NULL) {
-            busstop_hashtable[h] = b;
-        } else {
-            append_to_bucket(busstop_hashtable[h], b);
-        }
+        bus_stop *bs = malloc(sizeof(bus_stop));
+        bs->northing = atoi(location_n[i]);
+        bs->easting = atoi(location_e[i]);
+        bs->name = busstop_names[i];
+        bucket * buck = malloc(sizeof(bucket));
+        buck->b = bs;
+        buck->next = NULL;
+
+        h = hash(bs->name, DICT_SIZE, MAX_WORD);
+        print_bucket(buck);
+        // if (busstop_hashtable[h] == NULL) {
+        //     busstop_hashtable[h] = buck;
+        // } else {
+        //     // if (bs == NULL) {
+        //     //     printf("YOOO");
+        //     // }
+        //     print_bucket(&buck);
+        //     // append_to_bucket(&busstop_hashtable[h], bs);
+        // }
         
     }
     // print_dict(busstop_hashtable, DICT_SIZE);
 
 
-    for (int i=0; i < len_routes; i++) {
-        h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
-        bucket * b = find_in_bucket(busstop_hashtable[h], busstop_names_routes[i]);
-        append_buses(b->b.bus_list, routes[i]);
-    }
-
-    print_buses_at_busstop(busstop_hashtable);
+    // for (int i=0; i < len_routes; i++) {
+    //     h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
+    //     bucket * b = find_in_bucket(busstop_hashtable[h], busstop_names_routes[i]);
+    //     append_buses(b->b.bus_list, routes[i]);
+    // }
+    // print_buses_at_busstop(busstop_hashtable);
 }
