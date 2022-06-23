@@ -31,14 +31,24 @@ int main()
     char *busstop_names_routes[len_routes];
 
     
+    printf(" YOOO 1\n");
+    read_file(num_busstops, "bus_data/names.txt", &busstop_names, 1);
+    printf(" YOOO 69\n");
+    capitalise_text(num_busstops, &busstop_names);
+    printf(" YOOO 3\n");
+    read_file(num_busstops, "bus_data/location_n.txt", &location_n, 0);
+    printf(" YOOO 4\n");
+    read_file(num_busstops, "bus_data/location_e.txt", &location_e, 0);
+    printf(" YOOO 2\n");
+    read_file(len_routes, "bus_sequences/route.txt", &routes, 0);
+    read_file(len_routes, "bus_sequences/sequence.txt", &sequences, 0);
+    read_file(len_routes, "bus_sequences/stop_name.txt", &busstop_names_routes, 1);
+    capitalise_text(len_routes, &busstop_names_routes);
 
-    read_file(num_busstops, "bus_data/names.txt", &busstop_names);
-    read_file(num_busstops, "bus_data/location_n.txt", &location_n);
-    read_file(num_busstops, "bus_data/location_e.txt", &location_e);
-
-    read_file(len_routes, "bus_sequences/route.txt", &routes);
-    read_file(len_routes, "bus_sequences/sequence.txt", &sequences);
-    read_file(len_routes, "bus_sequences/stop_name.txt", &busstop_names_routes);
+    printf("\n\nbusstop names: \n");
+    for (int i=0; i < num_busstops; i++ ) {
+        printf("%s \n", busstop_names[i]); 
+    }
 
     bucket * busstop_hashtable[DICT_SIZE];
     for (int i=0; i < DICT_SIZE; i++) {
@@ -54,24 +64,34 @@ int main()
         bucket * buck = malloc(sizeof(bucket));
         buck->b = bs;
         buck->next = NULL;
-
         h = hash(bs->name, DICT_SIZE, MAX_WORD);
-        // print_bucket(buck);
+
         if (busstop_hashtable[h] == NULL) {
             busstop_hashtable[h] = buck;
         } else {
-            // printf("YOO");
             append_to_bucket(busstop_hashtable[h], buck);
         }
         
     }
-    print_dict(busstop_hashtable, DICT_SIZE);
-
+    // print_dict(busstop_hashtable, DICT_SIZE);
+    // printf("3603: %s", busstop_hashtable[3603]->b->name);
 
     for (int i=0; i < len_routes; i++) {
         h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
-        bucket * b = find_in_bucket(busstop_hashtable[h], busstop_names_routes[i]);
-        append_buses(b->b->bus_list, routes[i]);
+        bucket * boocket = busstop_hashtable[h];
+        char * s =busstop_names_routes[i]; 
+        // printf("3603: %s\n", busstop_hashtable[3603]->b->name);
+        printf("busstop_names_routes[i]: %s\n" ,busstop_names_routes[i]);
+        printf(" h: %i \n", h);
+
+        // PROBLEM: names.txt IS LOWERCASE BUT stop_name.txt IS UPPERCASE SO HASH TO DIFFERENT VALUES
+
+        // bus_stop * busstooop = boocket->b;
+        printf("%s \n\n\n", boocket->b->name);
+
+        
+        // bucket * b = find_in_bucket(boocket, s);
+        // append_buses(b->b->bus_list, atoi(routes[i]));
     }
-    print_buses_at_busstop(busstop_hashtable);
+    // print_busstops(busstop_hashtable, DICT_SIZE);
 }

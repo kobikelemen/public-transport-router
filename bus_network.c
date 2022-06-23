@@ -89,12 +89,14 @@ void append_to_bucket(bucket * b, bucket * a)
 }
 
 
-bucket * find_in_bucket(bucket * b, char * busstop_name)
+bucket * find_in_bucket(bucket * buk, char * busstop_name)
 {
-    if (b->b->name == busstop_name) {
-        return b;
+    // printf("%s ", buk->b->name);
+
+    if (buk->b->name == busstop_name) {
+        return buk;
     }
-    find_in_bucket(b->b->name, busstop_name);
+    find_in_bucket(buk->next, busstop_name);
 }
 
 // tfl.gov.uk/tfl/syndication/feeds/bus-sequences.csv
