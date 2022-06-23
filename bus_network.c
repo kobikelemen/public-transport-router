@@ -52,7 +52,6 @@ int hash(char name[], int DICT_SIZE, int MAX_WORD)
 
 void print_bucket(bucket* buck)
 {
-    printf("YOO");
     if (buck == NULL) {
         return;
     }
@@ -77,16 +76,16 @@ void print_dict(bucket * hash_table[], int DICT_SIZE)
 }
 
 
-void append_to_bucket(bucket ** b, bucket * a)
+void append_to_bucket(bucket * b, bucket * a)
 {
     // printf("YOO");
-    printf("YOO %s\n",(*b)->b->name);
+    // printf("YOO %s\n",(*b)->b->name);
 
-    // if ((*b)->next == NULL) {
-    //     (*b)->next = a;
-    //     return;
-    // }
-    // append_to_bucket((*b)->next, a);
+    if (b->next == NULL) {
+        b->next = a;
+        return;
+    }
+    append_to_bucket(b->next, a);
 }
 
 
