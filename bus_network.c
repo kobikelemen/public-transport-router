@@ -89,6 +89,9 @@ void append_to_bucket(bucket * b, bucket * a)
 }
 
 
+// int is_in_bucket(bucket * buck,)
+
+
 bucket * find_in_bucket(bucket * buk, char * busstop_name)
 {
     // printf("%s ", buk->b->name);

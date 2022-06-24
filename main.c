@@ -67,24 +67,54 @@ int main()
         
     }
     // print_dict(busstop_hashtable, DICT_SIZE);
-    // printf("3603: %s", busstop_hashtable[3603]->b->name);
+
+
+    // char * nonmatching_busstops[30000];
+    printf("YO1\n");
+    list * nonmatching_busstops = malloc(sizeof(list));
+    printf("YO2\n");
+    nonmatching_busstops->next = NULL;
+    strcpy(nonmatching_busstops->s, "...");
+    int j=0;
 
     for (int i=0; i < len_routes; i++) {
         h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
         bucket * boocket = busstop_hashtable[h];
-        char * s =busstop_names_routes[i]; 
-        // printf("3603: %s\n", busstop_hashtable[3603]->b->name);
+        char * s = busstop_names_routes[i]; 
+
         printf("busstop_names_routes[i]: %s\n" ,busstop_names_routes[i]);
         printf(" h: %i \n", h);
 
-        // PROBLEM: names.txt IS LOWERCASE BUT stop_name.txt IS UPPERCASE SO HASH TO DIFFERENT VALUES
+
 
         // bus_stop * busstooop = boocket->b;
-        printf("%s \n\n\n", boocket->b->name);
-
-        
+        if (boocket == NULL) {
+            // printf("j: %i \n", j);
+            // strcpy(nonmatching_busstops[j],busstop_names_routes[i]);
+            printf("YOOOOO\n");
+            append_list(nonmatching_busstops, busstop_names_routes[i]);
+            // printf("YObutasdasdqasdasdch\n");
+            j++;
+        }
+        else {
+            int dasf = 0;
+            // printf("%s \n\n\n", boocket->b->name);
+        }
         // bucket * b = find_in_bucket(boocket, s);
         // append_buses(b->b->bus_list, atoi(routes[i]));
     }
+
+    print_list(nonmatching_busstops);
+
+    printf("YO")
+
+
+    // printf("\n\nnon matching strings: \n");
+    // for (int i=0; i < j; i++) {
+    //     printf(" %s\n", nonmatching_busstops[i]);
+    // }
+
+
+
     // print_busstops(busstop_hashtable, DICT_SIZE);
 }

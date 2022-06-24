@@ -2,6 +2,25 @@
 #include "useful.h"
 
 
+list * append_list(list *lis, char * str)
+{
+    list *l = malloc(sizeof(list));
+    l->s = str;
+    l->next = lis;
+    return l;
+}
+
+void print_list(list * l )
+{
+  if (l == NULL) {
+    return;
+  }
+  printf("%s ", l->s);
+  print_list(l->next);
+}
+
+
+
 
 void capitalise(char ** s)
 {
