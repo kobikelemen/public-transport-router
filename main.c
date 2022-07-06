@@ -72,9 +72,13 @@ int main()
     // char * nonmatching_busstops[30000];
     printf("YO1\n");
     list * nonmatching_busstops = malloc(sizeof(list));
+    // list nonmatching_busstops;
+    
     printf("YO2\n");
     nonmatching_busstops->next = NULL;
+    printf("YO3\n");
     strcpy(nonmatching_busstops->s, "...");
+    printf("YO2\n");
     int j=0;
 
     for (int i=0; i < len_routes; i++) {
@@ -106,7 +110,7 @@ int main()
 
     print_list(nonmatching_busstops);
 
-    printf("YO")
+    printf("YO");
 
 
     // printf("\n\nnon matching strings: \n");
@@ -117,4 +121,9 @@ int main()
 
 
     // print_busstops(busstop_hashtable, DICT_SIZE);
+
+
+
+
+    free(nonmatching_busstops);
 }
