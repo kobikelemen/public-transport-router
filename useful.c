@@ -5,7 +5,6 @@
 list * append_list(list *lis, char * str)
 {
     list *l = malloc(sizeof(list));
-    // l->s = str;
     strcpy(l->s, str);
     l->next = lis;
     return l;

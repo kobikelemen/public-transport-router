@@ -2,11 +2,44 @@
 
 
 
-void append_buses(buses *bus_head, int bus)
+void append_buses(bus_stop *busstop, int bus)
 {
-    buses *b = malloc(sizeof(buses));
-    b->bus = bus;
-    bus_head->next = b;
+    printf("YOO1\n");
+    // buses *b = malloc(sizeof(buses));
+    // b->bus = bus;
+    // b->next = *bus_head;
+    // *bus_head = b;
+
+    int i=0; 
+    while ((busstop->bus_list)[i] != 0) {
+        printf(" cnt: %s\n", (busstop->bus_list)[i]);
+        i++;
+    }
+    printf("YOO2\n");
+    printf("bus: %i\n", bus);
+    printf(" cnt: %s\n", (busstop->bus_list)[i]);
+    (busstop->bus_list)[i] = bus;
+
+
+
+    // printf("YOO1\n");
+
+    // if ((*bus_head) == NULL) {
+    //     printf("ITS NULL BETCH \n");
+    // }
+    // printf("YOO4\n");
+
+    // if ((*bus_head)->next == NULL) {
+    //     printf("YOO2\n");
+    //     buses *b = malloc(sizeof(buses));
+    //     b->bus = bus;
+    //     b->next = NULL;
+    //     printf("YOO3\n");
+    //     (*bus_head)->next = b;
+    //     return;
+    // }
+
+    // append_buses(&((*bus_head)->next), bus);
 
 }
 
@@ -78,8 +111,6 @@ void print_dict(bucket * hash_table[], int DICT_SIZE)
 
 void append_to_bucket(bucket * b, bucket * a)
 {
-    // printf("YOO");
-    // printf("YOO %s\n",(*b)->b->name);
 
     if (b->next == NULL) {
         b->next = a;
@@ -96,8 +127,12 @@ bucket * find_in_bucket(bucket * buk, char * busstop_name)
 {
     // printf("%s ", buk->b->name);
 
-    if (buk->b->name == busstop_name) {
+
+    if (strcmp(buk->b->name, busstop_name) == 0) {
         return buk;
+    }
+    if (buk->next == NULL) {
+        return NULL;
     }
     find_in_bucket(buk->next, busstop_name);
 }

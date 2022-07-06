@@ -13,6 +13,12 @@ TODO
 */
 
 
+/*
+Don't bother with walking graph, instead first estimate walking distance based on
+actual distance to find nearest stations then use google maps api to get actual 
+walking distance to station
+*/
+
 
 int main()
 {
@@ -50,13 +56,25 @@ int main()
 
     int h = 0; 
     for (int i=0; i < num_busstops; i++) {  
+        // init bus stop
         bus_stop *bs = malloc(sizeof(bus_stop));
         bs->northing = atoi(location_n[i]);
         bs->easting = atoi(location_e[i]);
         bs->name = busstop_names[i];
+        // buses * buslist = malloc(sizeof(buses));
+        // buslist = NULL;
+        // bs->bus_list = buslist;
+
+        for (int n=0; n< 10; n++) {
+            (bs->bus_list)[n] = 0; // init array of buses at busstop to 0s
+        }
+        //
+
+        // init bucket which holds bus stop
         bucket * buck = malloc(sizeof(bucket));
         buck->b = bs;
         buck->next = NULL;
+        //
         h = hash(bs->name, DICT_SIZE, MAX_WORD);
 
         if (busstop_hashtable[h] == NULL) {
@@ -70,24 +88,21 @@ int main()
 
 
     // char * nonmatching_busstops[30000];
-    printf("YO1\n");
     list * nonmatching_busstops = malloc(sizeof(list));
-    // list nonmatching_busstops;
     
-    printf("YO2\n");
+    
     nonmatching_busstops->next = NULL;
-    printf("YO3\n");
-    strcpy(nonmatching_busstops->s, "...");
-    printf("YO2\n");
-    int j=0;
+        
+    int emp = 0;
+    int nemp = 0;
 
     for (int i=0; i < len_routes; i++) {
         h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
         bucket * boocket = busstop_hashtable[h];
         char * s = busstop_names_routes[i]; 
 
-        printf("busstop_names_routes[i]: %s\n" ,busstop_names_routes[i]);
-        printf(" h: %i \n", h);
+        // printf("busstop_names_routes[i]: %s\n" ,busstop_names_routes[i]);
+        // printf(" h: %i \n", h);
 
 
 
@@ -95,22 +110,30 @@ int main()
         if (boocket == NULL) {
             // printf("j: %i \n", j);
             // strcpy(nonmatching_busstops[j],busstop_names_routes[i]);
-            printf("YOOOOO\n");
-            append_list(nonmatching_busstops, busstop_names_routes[i]);
-            // printf("YObutasdasdqasdasdch\n");
-            j++;
+            // printf("boocket = NULL!\n");
+            // printf("i: %i \n", i);
+            // printf("busstop_names_routes[i]: %s\n" ,busstop_names_routes[i]);
+            // append_list(nonmatching_busstops, busstop_names_routes[i]);
+            emp++;
         }
         else {
-            int dasf = 0;
-            // printf("%s \n\n\n", boocket->b->name);
+            bucket * buk = find_in_bucket(boocket, busstop_names_routes[i]);
+            if (buk == NULL) {
+                emp++;
+                continue;
+            }
+
+            print_bucket(buk);
+
+            append_buses(buk->b, atoi(routes[i]));
+            nemp ++;
+
         }
-        // bucket * b = find_in_bucket(boocket, s);
-        // append_buses(b->b->bus_list, atoi(routes[i]));
     }
 
-    print_list(nonmatching_busstops);
+    
 
-    printf("YO");
+    
 
 
     // printf("\n\nnon matching strings: \n");
@@ -121,9 +144,18 @@ int main()
 
 
     // print_busstops(busstop_hashtable, DICT_SIZE);
+    // print_busstops(busstop_hashtable, 10);
 
 
+    
+    printf("END\n");
+
+    printf("num empty:  %i \n", emp);
+    printf("num not empty:  %i \n", nemp);
 
 
     free(nonmatching_busstops);
+    // for (int i=0; i < DICT_SIZE; i++) {
+    //     free(busstop_hashtable[i]);
+    // }
 }

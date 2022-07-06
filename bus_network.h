@@ -18,24 +18,28 @@ typedef struct buses
 } buses;
 
 
-// add to linked list
-void append_buses(struct buses *bus_head, int bus);
-void print_buses_at_busstop(buses * bu);
+
 
 
 // node of busstop graph
 typedef struct bus_stop 
 {
     char * name; 
-    struct buses * bus_list;
+    // struct buses * bus_list;
+    int bus_list[10];
     struct bus_stop * neighbour;
     int northing;
     int easting;
 } bus_stop;
 
 
+// add to linked list
+void append_buses(bus_stop *busstop, int bus);
+void print_buses_at_busstop(buses * bu);
+
+
 // distance between bustops based on northing and easting
-float dist_busstops(int coords1, int coords2); // not implemented yet
+float dist_busstops(int coords1, int coords2); //   not implemented yet
 
 
 // bus stop graph
