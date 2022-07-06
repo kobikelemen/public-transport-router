@@ -10,7 +10,7 @@
 
 typedef struct list
 {
-    char * s;
+    char s[50];
     struct list * next;
 }list;
 
