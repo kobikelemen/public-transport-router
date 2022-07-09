@@ -4,7 +4,7 @@
 
 void append_buses(bus_stop *busstop, int bus)
 {
-    printf("YOO1\n");
+    printf("\nYOO1\n");
     // buses *b = malloc(sizeof(buses));
     // b->bus = bus;
     // b->next = *bus_head;
@@ -13,7 +13,7 @@ void append_buses(bus_stop *busstop, int bus)
     int i=0; 
     while ((busstop->bus_list)[i] != 0) {
         printf("BI\n");
-        printf(" cnt: %s\n", (busstop->bus_list)[i]);
+        printf(" cnt: %i\n", (busstop->bus_list)[i]);
         i++;
         if ( i > 1000 ) {
             break;

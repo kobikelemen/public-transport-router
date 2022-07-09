@@ -119,10 +119,13 @@ int main()
         else {
 
             // printf("test %s \n",boocket->b->name);
-            printf("%i \n" ,(boocket->b->bus_list)[0]);
+            // printf("%i \n" ,(boocket->b->bus_list)[0]);
+
+            printf("\ni: %i\n", i);
 
             
             bucket * buk = malloc(sizeof(bucket));
+            // printf("\nIM HERE\n");
 
             buk = find_in_bucket(boocket, busstop_names_routes[i]);
             printf("\nMAIN - buk ptr: %p\n", buk);
@@ -135,18 +138,18 @@ int main()
             printf("MAIN - print bucket \n");
             print_bucket(boocket);
             
-            printf("\nYO\n");
-            print_bucket(buk);
+            // printf("\nYO\n");
+            // print_bucket(buk);
 
             if (buk->b == NULL) {
                 printf("FAIL\n");
             }
-            printf("printing bucket: \n");
+            printf("\nprinting bucket: \n");
             print_bucket(buk);
 
             append_buses(buk->b, atoi(routes[i]));
             nemp ++;
-            free(buk);
+            // free(buk);
 
         }
     }
