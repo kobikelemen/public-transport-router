@@ -119,7 +119,7 @@ int main()
         else {
 
             // printf("test %s \n",boocket->b->name);
-            // printf("%i \n" ,(boocket->b->bus_list)[0]);
+            printf("%i \n" ,(boocket->b->bus_list)[0]);
 
             
             bucket * buk = malloc(sizeof(bucket));
