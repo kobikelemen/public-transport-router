@@ -117,16 +117,36 @@ int main()
             emp++;
         }
         else {
-            bucket * buk = find_in_bucket(boocket, busstop_names_routes[i]);
+
+            // printf("test %s \n",boocket->b->name);
+            // printf("%i \n" ,(boocket->b->bus_list)[0]);
+
+            
+            bucket * buk = malloc(sizeof(bucket));
+
+            buk = find_in_bucket(boocket, busstop_names_routes[i]);
+            printf("\nMAIN - buk ptr: %p\n", buk);
+            // printf("MAIN- bucket->b->name: %s \n", buk->b->name);
+            
             if (buk == NULL) {
                 emp++;
                 continue;
             }
+            printf("MAIN - print bucket \n");
+            print_bucket(boocket);
+            
+            printf("\nYO\n");
+            print_bucket(buk);
 
+            if (buk->b == NULL) {
+                printf("FAIL\n");
+            }
+            printf("printing bucket: \n");
             print_bucket(buk);
 
             append_buses(buk->b, atoi(routes[i]));
             nemp ++;
+            free(buk);
 
         }
     }

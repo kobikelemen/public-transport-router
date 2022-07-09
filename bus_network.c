@@ -12,12 +12,16 @@ void append_buses(bus_stop *busstop, int bus)
 
     int i=0; 
     while ((busstop->bus_list)[i] != 0) {
+        printf("BI\n");
         printf(" cnt: %s\n", (busstop->bus_list)[i]);
         i++;
+        if ( i > 1000 ) {
+            break;
+        }
     }
     printf("YOO2\n");
     printf("bus: %i\n", bus);
-    printf(" cnt: %s\n", (busstop->bus_list)[i]);
+    printf(" cnt: %i\n", (busstop->bus_list)[i]);
     (busstop->bus_list)[i] = bus;
 
 
@@ -85,9 +89,11 @@ int hash(char name[], int DICT_SIZE, int MAX_WORD)
 
 void print_bucket(bucket* buck)
 {
+    
     if (buck == NULL) {
         return;
     }
+    
     printf("\t%s", buck->b->name);
     print_bucket(buck->next);
 }
@@ -125,10 +131,18 @@ void append_to_bucket(bucket * b, bucket * a)
 
 bucket * find_in_bucket(bucket * buk, char * busstop_name)
 {
-    // printf("%s ", buk->b->name);
+    
+    // if ( strcmp(buk->b->name, "MUSEUM STREET") == 0) {
+    //     return NULL;
+    // }
+    
 
 
     if (strcmp(buk->b->name, busstop_name) == 0) {
+        printf("FIND_IN_BUCKET - buk ptr: %p\n", buk);
+        printf("FIND_IN_BUCKET - print bucket: \n");
+        print_bucket(buk);
+        // printf("INSIDE FIND_IN_BUCKET- bucket->b->name: %s \n", buk->b->name);
         return buk;
     }
     if (buk->next == NULL) {
