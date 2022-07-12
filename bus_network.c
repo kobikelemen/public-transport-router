@@ -4,7 +4,6 @@
 
 void append_buses(bus_stop *busstop, int bus)
 {
-    printf("\nYOO1\n");
     // buses *b = malloc(sizeof(buses));
     // b->bus = bus;
     // b->next = *bus_head;
@@ -47,13 +46,18 @@ void append_buses(bus_stop *busstop, int bus)
 
 }
 
-void print_buses_at_busstop(buses * bu)
+void print_buses_at_busstop(int bu[], int arrsize)
 {
-    if (bu == NULL) {
-        return;
+    // if (bu == NULL) {
+    //     return;
+    // }
+    // printf("%i ", bu->bus);
+    // print_buses_at_busstop(bu->next);
+
+    
+    for (int j=0; j < arrsize; j++) {
+        printf("\t%s", bu[j]);
     }
-    printf("%i ", bu->bus);
-    print_buses_at_busstop(bu->next);
 }
 
 
@@ -61,8 +65,8 @@ void print_busstops(bucket * hashtable[], int DICT_SIZE)
 {
     for (int i=0; i < DICT_SIZE; i++) {
         printf("\n\n name: %s \n", hashtable[i]->b->name);
-        printf("buses: ");
-        print_buses_at_busstop(hashtable[i]->b->bus_list);
+        printf("buses:   ");
+        print_buses_at_busstop(hashtable[i]->b->bus_list, 10);
         printf("\n");
         // print neighbours to-do
         printf("northling: %i\n", hashtable[i]->b->northing);
@@ -135,7 +139,7 @@ void append_to_bucket(bucket * b, bucket * a)
 // int is_in_bucket(bucket * buck,)
 
 
-bucket * find_in_bucket(bucket * buk, char * busstop_name)
+bucket * find_in_bucket(bucket * buk, char * busstop_name, int add_busroute)
 {
     
     // if ( strcmp(buk->b->name, "MUSEUM STREET") == 0) {
@@ -143,19 +147,22 @@ bucket * find_in_bucket(bucket * buk, char * busstop_name)
     // }
     // printf("\nYo1\n");
     
-    if (buk->next == NULL || buk->b == NULL) {
+    if (buk->next == NULL) {
         return NULL;
     }
+    printf("f.i.b. name: %s\n", buk->b->name);
 
     if (strcmp(buk->b->name, busstop_name) == 0) {
         // printf("FIND_IN_BUCKET - buk ptr: %p\n", buk);
         // printf("FIND_IN_BUCKET - print bucket: \n");
         // print_bucket(buk);
         // printf("INSIDE FIND_IN_BUCKET- bucket->b->name: %s \n", buk->b->name);
+        printf("FOUND IT!\n");
+        append_buses(buk->b, add_busroute);
         return buk;
     }
     
-    find_in_bucket(buk->next, busstop_name);
+    find_in_bucket(buk->next, busstop_name, add_busroute);
 }
 
 // tfl.gov.uk/tfl/syndication/feeds/bus-sequences.csv

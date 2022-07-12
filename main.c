@@ -129,7 +129,7 @@ int main()
             bucket * buk = malloc(sizeof(bucket));
             // printf("\nIM HERE\n");
 
-            buk = find_in_bucket(boocket, busstop_names_routes[i]);
+            buk = find_in_bucket(boocket, busstop_names_routes[i], atoi(routes[i]));
             // printf("\nMAIN - buk ptr: %p\n", buk);
             
             // printf("MAIN- bucket->b->name: %s \n", buk->b->name);
@@ -140,9 +140,7 @@ int main()
                 emp++;
                 continue;
             }
-            // if (i == 23327 || i == 24045 || i == 24050 || i == 25973 || i == 27832) {
-            //     continue;
-            // }
+            
             // printf("MAIN - print bucket \n");
             // print_bucket(boocket);
             
@@ -158,11 +156,16 @@ int main()
             // print_bucket(buk);
 
             // printf("\nBEFORE APPEND_BUSSES\n");
-            append_buses(buk->b, atoi(routes[i]));
+
+
+            // append_buses(buk->b, atoi(routes[i]));
             nemp ++;
             // free(buk);
             printf("num empty:  %i \n", emp);
             printf("num not empty:  %i \n", nemp);
+
+
+
             
 
         }
@@ -188,7 +191,19 @@ int main()
     
     printf("END\n");
     printf("num empty:  %i \n", emp);
-    printf("num not empty:  %i \n", nemp);
+    printf("num not empty:  %i \n\n\n", nemp);
 
 
+    for (int n = 0; n < 100; n++) {
+        if (busstop_hashtable[n] != NULL ) {
+            
+            printf("%s:  ", busstop_hashtable[n]->b->name);
+            for (int p=0; p < 10; p++) {
+                printf("\t%i", busstop_hashtable[n]->b->bus_list[p]);
+            }
+
+        printf("\n");   
+
+        }
+    }
 }
