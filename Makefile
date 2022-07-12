@@ -1,15 +1,22 @@
 
 
-CC=clang 
+CC=clang
 
-all: main
+CFLAGS=-g
 
-bus_network.o: bus_network.h bus_network.c
-	$(CC) $(CLFLAGS) -c bus_network.c 
+all: mainapp
 
-useful.o: useful.h useful.c 
-	$(CC) $(CLFLAGS) -c useful.c 
+mainapp: main.o bus_network.o useful.o
+	$(CC) $(CFLAGS) main.o bus_network.o useful.o -o main
 
-main: bus_network.o useful.o main.c
-	$(CC) $(CLFLAGS) -o main main.c bus_network.o useful.o
+main.o: main.c
+	$(CC) $(CFLAGS) -c main.c
 
+bus_network.o: bus_network.c
+	$(CC) $(CFLAGS) -c bus_network.c
+
+useful.o: useful.c
+	$(CC) $(CFLAGS) -c useful.c
+
+clean:
+	rm a.out *.o mainapp

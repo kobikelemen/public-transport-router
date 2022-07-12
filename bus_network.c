@@ -93,6 +93,12 @@ void print_bucket(bucket* buck)
     if (buck == NULL) {
         return;
     }
+
+    printf("\nin print bucket, ptr: %p\n", buck);
+    if (buck->b == NULL) {
+        printf("\nOHHH\n");
+    }
+    printf("NOT OH\n");
     
     printf("\t%s", buck->b->name);
     print_bucket(buck->next);
@@ -141,7 +147,7 @@ bucket * find_in_bucket(bucket * buk, char * busstop_name)
     if (strcmp(buk->b->name, busstop_name) == 0) {
         printf("FIND_IN_BUCKET - buk ptr: %p\n", buk);
         printf("FIND_IN_BUCKET - print bucket: \n");
-        print_bucket(buk);
+        // print_bucket(buk);
         // printf("INSIDE FIND_IN_BUCKET- bucket->b->name: %s \n", buk->b->name);
         return buk;
     }

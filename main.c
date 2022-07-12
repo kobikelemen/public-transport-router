@@ -53,6 +53,7 @@ int main()
     for (int i=0; i < DICT_SIZE; i++) {
         busstop_hashtable[i] = NULL;
     }
+    int bytes = 0;
 
     int h = 0; 
     for (int i=0; i < num_busstops; i++) {  
@@ -72,6 +73,7 @@ int main()
 
         // init bucket which holds bus stop
         bucket * buck = malloc(sizeof(bucket));
+        bytes += sizeof(bucket);
         buck->b = bs;
         buck->next = NULL;
         //
@@ -86,13 +88,13 @@ int main()
     }
     // print_dict(busstop_hashtable, DICT_SIZE);
 
+    
 
-    // char * nonmatching_busstops[30000];
-    list * nonmatching_busstops = malloc(sizeof(list));
+    // printf("")
+
+
     
-    
-    nonmatching_busstops->next = NULL;
-        
+
     int emp = 0;
     int nemp = 0;
 
@@ -118,7 +120,7 @@ int main()
         }
         else {
 
-            // printf("test %s \n",boocket->b->name);
+            //  printf("test %s \n",boocket->b->name);
             // printf("%i \n" ,(boocket->b->bus_list)[0]);
 
             printf("\ni: %i\n", i);
@@ -129,10 +131,14 @@ int main()
 
             buk = find_in_bucket(boocket, busstop_names_routes[i]);
             printf("\nMAIN - buk ptr: %p\n", buk);
+            
             // printf("MAIN- bucket->b->name: %s \n", buk->b->name);
             
             if (buk == NULL) {
                 emp++;
+                continue;
+            }
+            if (i == 23327 || i == 24045 || i == 24050 || i == 25973 || i == 27832) {
                 continue;
             }
             printf("MAIN - print bucket \n");
@@ -141,24 +147,31 @@ int main()
             // printf("\nYO\n");
             // print_bucket(buk);
 
-            if (buk->b == NULL) {
-                printf("FAIL\n");
-            }
-            printf("\nprinting bucket: \n");
-            print_bucket(buk);
+            // if (buk->b == NULL) {
+            //     printf("FAIL\n");
+            // }
 
+
+            // printf("\nprinting bucket: \n");
+            // print_bucket(buk);
+
+            printf("\nBEFORE APPEND_BUSSES\n");
             append_buses(buk->b, atoi(routes[i]));
             nemp ++;
             // free(buk);
+            printf("num empty:  %i \n", emp);
+            printf("num not empty:  %i \n", nemp);
+            
 
         }
     }
 
-    
 
     
 
+    
 
+    //
     // printf("\n\nnon matching strings: \n");
     // for (int i=0; i < j; i++) {
     //     printf(" %s\n", nonmatching_busstops[i]);
@@ -172,13 +185,8 @@ int main()
 
     
     printf("END\n");
-
     printf("num empty:  %i \n", emp);
     printf("num not empty:  %i \n", nemp);
 
 
-    free(nonmatching_busstops);
-    // for (int i=0; i < DICT_SIZE; i++) {
-    //     free(busstop_hashtable[i]);
-    // }
 }
