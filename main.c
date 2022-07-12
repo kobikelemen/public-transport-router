@@ -130,19 +130,21 @@ int main()
             // printf("\nIM HERE\n");
 
             buk = find_in_bucket(boocket, busstop_names_routes[i]);
-            printf("\nMAIN - buk ptr: %p\n", buk);
+            // printf("\nMAIN - buk ptr: %p\n", buk);
             
             // printf("MAIN- bucket->b->name: %s \n", buk->b->name);
             
             if (buk == NULL) {
+                printf("buk == NULL, print bucket:\n");
+                print_bucket(boocket);
                 emp++;
                 continue;
             }
-            if (i == 23327 || i == 24045 || i == 24050 || i == 25973 || i == 27832) {
-                continue;
-            }
-            printf("MAIN - print bucket \n");
-            print_bucket(boocket);
+            // if (i == 23327 || i == 24045 || i == 24050 || i == 25973 || i == 27832) {
+            //     continue;
+            // }
+            // printf("MAIN - print bucket \n");
+            // print_bucket(boocket);
             
             // printf("\nYO\n");
             // print_bucket(buk);
@@ -155,7 +157,7 @@ int main()
             // printf("\nprinting bucket: \n");
             // print_bucket(buk);
 
-            printf("\nBEFORE APPEND_BUSSES\n");
+            // printf("\nBEFORE APPEND_BUSSES\n");
             append_buses(buk->b, atoi(routes[i]));
             nemp ++;
             // free(buk);

@@ -12,16 +12,16 @@ void append_buses(bus_stop *busstop, int bus)
 
     int i=0; 
     while ((busstop->bus_list)[i] != 0) {
-        printf("BI\n");
-        printf(" cnt: %i\n", (busstop->bus_list)[i]);
+        // printf("BI\n");
+        // printf(" cnt: %i\n", (busstop->bus_list)[i]);
         i++;
         if ( i > 1000 ) {
             break;
         }
     }
-    printf("YOO2\n");
-    printf("bus: %i\n", bus);
-    printf(" cnt: %i\n", (busstop->bus_list)[i]);
+    // printf("YOO2\n");
+    // printf("bus: %i\n", bus);
+    // printf(" cnt: %i\n", (busstop->bus_list)[i]);
     (busstop->bus_list)[i] = bus;
 
 
@@ -94,11 +94,11 @@ void print_bucket(bucket* buck)
         return;
     }
 
-    printf("\nin print bucket, ptr: %p\n", buck);
+    // printf("\nin print bucket, ptr: %p\n", buck);
     if (buck->b == NULL) {
         printf("\nOHHH\n");
     }
-    printf("NOT OH\n");
+    // printf("NOT OH\n");
     
     printf("\t%s", buck->b->name);
     print_bucket(buck->next);
@@ -141,19 +141,20 @@ bucket * find_in_bucket(bucket * buk, char * busstop_name)
     // if ( strcmp(buk->b->name, "MUSEUM STREET") == 0) {
     //     return NULL;
     // }
+    // printf("\nYo1\n");
     
-
+    if (buk->next == NULL || buk->b == NULL) {
+        return NULL;
+    }
 
     if (strcmp(buk->b->name, busstop_name) == 0) {
-        printf("FIND_IN_BUCKET - buk ptr: %p\n", buk);
-        printf("FIND_IN_BUCKET - print bucket: \n");
+        // printf("FIND_IN_BUCKET - buk ptr: %p\n", buk);
+        // printf("FIND_IN_BUCKET - print bucket: \n");
         // print_bucket(buk);
         // printf("INSIDE FIND_IN_BUCKET- bucket->b->name: %s \n", buk->b->name);
         return buk;
     }
-    if (buk->next == NULL) {
-        return NULL;
-    }
+    
     find_in_bucket(buk->next, busstop_name);
 }
 
