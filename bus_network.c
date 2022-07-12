@@ -2,7 +2,7 @@
 
 
 
-void append_buses(bus_stop *busstop, int bus)
+void append_buses(bus_stop **busstop, int bus)
 {
     // buses *b = malloc(sizeof(buses));
     // b->bus = bus;
@@ -10,7 +10,7 @@ void append_buses(bus_stop *busstop, int bus)
     // *bus_head = b;
 
     int i=0; 
-    while ((busstop->bus_list)[i] != 0) {
+    while (((*busstop)->bus_list)[i] != 0) {
         // printf("BI\n");
         // printf(" cnt: %i\n", (busstop->bus_list)[i]);
         i++;
@@ -21,7 +21,7 @@ void append_buses(bus_stop *busstop, int bus)
     // printf("YOO2\n");
     // printf("bus: %i\n", bus);
     // printf(" cnt: %i\n", (busstop->bus_list)[i]);
-    (busstop->bus_list)[i] = bus;
+    ((*busstop)->bus_list)[i] = bus;
 
 
 
@@ -139,7 +139,7 @@ void append_to_bucket(bucket * b, bucket * a)
 // int is_in_bucket(bucket * buck,)
 
 
-bucket * find_in_bucket(bucket * buk, char * busstop_name, int add_busroute)
+bucket * find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 {
     
     // if ( strcmp(buk->b->name, "MUSEUM STREET") == 0) {
@@ -147,22 +147,22 @@ bucket * find_in_bucket(bucket * buk, char * busstop_name, int add_busroute)
     // }
     // printf("\nYo1\n");
     
-    if (buk->next == NULL) {
+    if ((*buk)->next == NULL) {
         return NULL;
     }
-    printf("f.i.b. name: %s\n", buk->b->name);
+    printf("f.i.b. name: %s\n", (*buk)->b->name);
 
-    if (strcmp(buk->b->name, busstop_name) == 0) {
+    if (strcmp((*buk)->b->name, busstop_name) == 0) {
         // printf("FIND_IN_BUCKET - buk ptr: %p\n", buk);
         // printf("FIND_IN_BUCKET - print bucket: \n");
         // print_bucket(buk);
         // printf("INSIDE FIND_IN_BUCKET- bucket->b->name: %s \n", buk->b->name);
         printf("FOUND IT!\n");
-        append_buses(buk->b, add_busroute);
-        return buk;
+        append_buses((&(*buk)->b), add_busroute);
+        return *buk;
     }
     
-    find_in_bucket(buk->next, busstop_name, add_busroute);
+    find_in_bucket(&((*buk)->next), busstop_name, add_busroute);
 }
 
 // tfl.gov.uk/tfl/syndication/feeds/bus-sequences.csv

@@ -125,21 +125,25 @@ int main()
 
             printf("\ni: %i\n", i);
 
+            if (i == 54190 || i == 54194 || ) {
+                continue;
+            }
+
             
             bucket * buk = malloc(sizeof(bucket));
             // printf("\nIM HERE\n");
 
-            buk = find_in_bucket(boocket, busstop_names_routes[i], atoi(routes[i]));
+            buk = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
             // printf("\nMAIN - buk ptr: %p\n", buk);
             
             // printf("MAIN- bucket->b->name: %s \n", buk->b->name);
             
-            if (buk == NULL) {
-                printf("buk == NULL, print bucket:\n");
-                print_bucket(boocket);
-                emp++;
-                continue;
-            }
+            // if (buk == NULL) {
+            //     printf("buk == NULL, print bucket:\n");
+            //     print_bucket(boocket);
+            //     emp++;
+            //     continue;
+            // }
             
             // printf("MAIN - print bucket \n");
             // print_bucket(boocket);
