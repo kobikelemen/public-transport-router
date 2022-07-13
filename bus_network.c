@@ -4,56 +4,21 @@
 
 void append_buses(bus_stop **busstop, int bus)
 {
-    // buses *b = malloc(sizeof(buses));
-    // b->bus = bus;
-    // b->next = *bus_head;
-    // *bus_head = b;
 
     int i=0; 
     while (((*busstop)->bus_list)[i] != 0) {
-        // printf("BI\n");
-        // printf(" cnt: %i\n", (busstop->bus_list)[i]);
+
         i++;
         if ( i > 1000 ) {
             break;
         }
     }
-    // printf("YOO2\n");
-    // printf("bus: %i\n", bus);
-    // printf(" cnt: %i\n", (busstop->bus_list)[i]);
+
     ((*busstop)->bus_list)[i] = bus;
-
-
-
-    // printf("YOO1\n");
-
-    // if ((*bus_head) == NULL) {
-    //     printf("ITS NULL BETCH \n");
-    // }
-    // printf("YOO4\n");
-
-    // if ((*bus_head)->next == NULL) {
-    //     printf("YOO2\n");
-    //     buses *b = malloc(sizeof(buses));
-    //     b->bus = bus;
-    //     b->next = NULL;
-    //     printf("YOO3\n");
-    //     (*bus_head)->next = b;
-    //     return;
-    // }
-
-    // append_buses(&((*bus_head)->next), bus);
-
 }
 
 void print_buses_at_busstop(int bu[], int arrsize)
 {
-    // if (bu == NULL) {
-    //     return;
-    // }
-    // printf("%i ", bu->bus);
-    // print_buses_at_busstop(bu->next);
-
     
     for (int j=0; j < arrsize; j++) {
         printf("\t%s", bu[j]);
@@ -98,11 +63,9 @@ void print_bucket(bucket* buck)
         return;
     }
 
-    // printf("\nin print bucket, ptr: %p\n", buck);
     if (buck->b == NULL) {
         printf("\nOHHH\n");
     }
-    // printf("NOT OH\n");
     
     printf("\t%s", buck->b->name);
     print_bucket(buck->next);
@@ -139,9 +102,6 @@ void append_to_bucket(bucket * b, bucket * a)
 int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 {
     
-    
-    // printf("f.i.b. name: %s\n", (*buk)->b->name);
-
     // char * t = "MARHAM GARDENS";
     // if (strcmp((*buk)->b->name, t) == 0) {
     //     printf("\n\n%s FOUND, add busroute: %i\n", t,add_busroute);
@@ -149,15 +109,12 @@ int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
     // }
 
     if (strcmp((*buk)->b->name, busstop_name) == 0) {
-
-        
         
         append_buses((&(*buk)->b), add_busroute);
         return 0;
     }
 
     if ((*buk)->next == NULL) {
-        // (*num_notfound) ++;
         return 2;
     }
     
