@@ -26,7 +26,7 @@ typedef struct bus_stop
 {
     char * name; 
     // struct buses * bus_list;
-    int bus_list[10];
+    int bus_list[20];
     struct bus_stop * neighbour;
     int northing;
     int easting;

@@ -125,9 +125,6 @@ int main()
 
             printf("\ni: %i\n", i);
 
-            if (i == 54190 || i == 54194 || ) {
-                continue;
-            }
 
             
             bucket * buk = malloc(sizeof(bucket));
@@ -202,7 +199,7 @@ int main()
         if (busstop_hashtable[n] != NULL ) {
             
             printf("%s:  ", busstop_hashtable[n]->b->name);
-            for (int p=0; p < 10; p++) {
+            for (int p=0; p < 20; p++) {
                 printf("\t%i", busstop_hashtable[n]->b->bus_list[p]);
             }
 

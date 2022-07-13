@@ -66,7 +66,7 @@ void print_busstops(bucket * hashtable[], int DICT_SIZE)
     for (int i=0; i < DICT_SIZE; i++) {
         printf("\n\n name: %s \n", hashtable[i]->b->name);
         printf("buses:   ");
-        print_buses_at_busstop(hashtable[i]->b->bus_list, 10);
+        print_buses_at_busstop(hashtable[i]->b->bus_list, 20);
         printf("\n");
         // print neighbours to-do
         printf("northling: %i\n", hashtable[i]->b->northing);
@@ -158,6 +158,11 @@ bucket * find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
         // print_bucket(buk);
         // printf("INSIDE FIND_IN_BUCKET- bucket->b->name: %s \n", buk->b->name);
         printf("FOUND IT!\n");
+        char * t = "BURWOOD PLACE";
+        if (strcmp((*buk)->b->name, t) == 0) {
+            printf("\n\nBURWOOD PLACE FOUND, add busroute: %i\n", add_busroute);
+            abort();
+        }
         append_buses((&(*buk)->b), add_busroute);
         return *buk;
     }
