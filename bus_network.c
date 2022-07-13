@@ -136,35 +136,29 @@ void append_to_bucket(bucket * b, bucket * a)
 }
 
 
-// int is_in_bucket(bucket * buck,)
-
-
-bucket * find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
+int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 {
     
-    // if ( strcmp(buk->b->name, "MUSEUM STREET") == 0) {
-    //     return NULL;
-    // }
-    // printf("\nYo1\n");
     
-    if ((*buk)->next == NULL) {
-        return NULL;
-    }
-    printf("f.i.b. name: %s\n", (*buk)->b->name);
+    // printf("f.i.b. name: %s\n", (*buk)->b->name);
+
+    // char * t = "MARHAM GARDENS";
+    // if (strcmp((*buk)->b->name, t) == 0) {
+    //     printf("\n\n%s FOUND, add busroute: %i\n", t,add_busroute);
+    //     return 1;
+    // }
 
     if (strcmp((*buk)->b->name, busstop_name) == 0) {
-        // printf("FIND_IN_BUCKET - buk ptr: %p\n", buk);
-        // printf("FIND_IN_BUCKET - print bucket: \n");
-        // print_bucket(buk);
-        // printf("INSIDE FIND_IN_BUCKET- bucket->b->name: %s \n", buk->b->name);
-        printf("FOUND IT!\n");
-        char * t = "BURWOOD PLACE";
-        if (strcmp((*buk)->b->name, t) == 0) {
-            printf("\n\nBURWOOD PLACE FOUND, add busroute: %i\n", add_busroute);
-            abort();
-        }
+
+        
+        
         append_buses((&(*buk)->b), add_busroute);
-        return *buk;
+        return 0;
+    }
+
+    if ((*buk)->next == NULL) {
+        // (*num_notfound) ++;
+        return 2;
     }
     
     find_in_bucket(&((*buk)->next), busstop_name, add_busroute);

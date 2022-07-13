@@ -44,10 +44,10 @@ int main()
     read_file(len_routes, "bus_sequences/sequence.txt", &sequences, 0);
     read_file(len_routes, "bus_sequences/stop_name.txt", &busstop_names_routes, 1);
 
-    printf("\n\nbusstop names: \n");
-    for (int i=0; i < num_busstops; i++ ) {
-        printf("%s \n", busstop_names[i]); 
-    }
+    // printf("\n\nbusstop names: \n");
+    // for (int i=0; i < num_busstops; i++ ) {
+    //     printf("%s \n", busstop_names[i]); 
+    // }
 
     bucket * busstop_hashtable[DICT_SIZE];
     for (int i=0; i < DICT_SIZE; i++) {
@@ -97,11 +97,13 @@ int main()
 
     int emp = 0;
     int nemp = 0;
+    int num_notfound;
 
     for (int i=0; i < len_routes; i++) {
         h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
         bucket * boocket = busstop_hashtable[h];
         char * s = busstop_names_routes[i]; 
+        int status = 0;
 
         // printf("busstop_names_routes[i]: %s\n" ,busstop_names_routes[i]);
         // printf(" h: %i \n", h);
@@ -118,6 +120,7 @@ int main()
             // append_list(nonmatching_busstops, busstop_names_routes[i]);
             emp++;
         }
+        
         else {
 
             //  printf("test %s \n",boocket->b->name);
@@ -130,7 +133,13 @@ int main()
             bucket * buk = malloc(sizeof(bucket));
             // printf("\nIM HERE\n");
 
-            buk = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
+            status = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
+            
+            if (status == 1) {
+                exit(1);
+            } else if (status == 2) {
+                num_notfound++;
+            }
             // printf("\nMAIN - buk ptr: %p\n", buk);
             
             // printf("MAIN- bucket->b->name: %s \n", buk->b->name);
@@ -195,7 +204,7 @@ int main()
     printf("num not empty:  %i \n\n\n", nemp);
 
 
-    for (int n = 0; n < 100; n++) {
+    for (int n = 0; n < 1500; n++) {
         if (busstop_hashtable[n] != NULL ) {
             
             printf("%s:  ", busstop_hashtable[n]->b->name);
@@ -207,4 +216,7 @@ int main()
 
         }
     }
+
+
+    printf("\n\n num notfound: %i\n\n", num_notfound);
 }
