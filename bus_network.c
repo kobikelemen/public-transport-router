@@ -4,16 +4,13 @@
 
 void append_buses(bus_stop **busstop, int bus)
 {
-
     int i=0; 
     while (((*busstop)->bus_list)[i] != 0) {
-
         i++;
         if ( i > 1000 ) {
             break;
         }
     }
-
     ((*busstop)->bus_list)[i] = bus;
 }
 
@@ -62,11 +59,9 @@ void print_bucket(bucket* buck)
     if (buck == NULL) {
         return;
     }
-
     if (buck->b == NULL) {
         printf("\nOHHH\n");
     }
-    
     printf("\t%s", buck->b->name);
     print_bucket(buck->next);
 }

@@ -27,10 +27,30 @@ typedef struct bus_stop
     char * name; 
     // struct buses * bus_list;
     int bus_list[20];
-    struct bus_stop * neighbour;
+    // struct bus_stop * neighbour;
     int northing;
     int easting;
+    int id;
 } bus_stop;
+
+
+
+// adjacency linked list with weight, each element contains bus_stop struct
+typedef struct {
+    bus_stop *node;
+    double time; // ie weight
+    char bus_number[5];
+    struct neighbour *next;
+} neighbour;
+
+
+// typedef struct bus_network
+// {
+//     int num_busstops;
+//     struct neightbour* busstops[]; // array of linked lists (adjacency list)
+// } bus_network;
+
+
 
 
 // add to linked list
@@ -42,12 +62,6 @@ void print_buses_at_busstop(int bu[], int arrsize);
 float dist_busstops(int coords1, int coords2); //   not implemented yet
 
 
-// bus stop graph
-typedef struct bus_network
-{
-    int num_busstops;
-    struct bus_stop* busstops[];
-} bus_network;
 
 
 

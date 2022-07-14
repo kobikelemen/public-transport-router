@@ -1,13 +1,14 @@
 import requests
 from datetime import datetime
 import time
+import os.path
 
 # response = requests.get('https://api.tfl.gov.uk/line/2/arrivals')
 # json = response.json()
 
 
 fr = open("../bus_sequences/route.txt", "r")
-fwrite = open("bus_timing.txt", "w")
+
 
 seq = fr.readlines()
 bus_routes = []
@@ -20,7 +21,10 @@ for i in seq:
 
 
 for i in range(len(bus_routes)):
+
     routei = bus_routes[i]
+
+    fwrite = open("bus_times/"+ routei+ ".txt", "w")
     url = 'https://api.tfl.gov.uk/line/'+routei+'/arrivals'
     print(url)
     response = requests.get(url)
@@ -35,10 +39,7 @@ for i in range(len(bus_routes)):
 
 
     for j in json:
-        # if type(j) == str:
-        #     print(j)
-        #     break
-        # print(j["expectedArrival"])
+
         at = j["expectedArrival"][11:-1]
         ts = j["timestamp"][11:18]
         x = "%H:%M:%S"
@@ -49,11 +50,14 @@ for i in range(len(bus_routes)):
         time_to_arrival = str(dt)
 
         
+        fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
+        # fwrite.write("lineName : " + j["lineName"] + "\n")
+        # fwrite.write("stationName : " + j["stationName"] + "\n")
+        # fwrite.write("destinationName : " + j["destinationName"] + "\n")
+        # fwrite.write("timeToArrival : " + time_to_arrival + "\n")
     
-        fwrite.write("lineName : " + j["lineName"] + "\n")
-        fwrite.write("stationName : " + j["stationName"] + "\n")
-        fwrite.write("destinationName : " + j["destinationName"] + "\n")
-        fwrite.write("timeToArrival : " + time_to_arrival + "\n")
+    
+    fwrite.close()
 
     #     for key, value in j.items():
     #         print(key, ":", value)

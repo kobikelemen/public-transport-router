@@ -32,6 +32,8 @@ walking distance to station
 int main()
 {
 
+    
+
     int MAX_WORD = 256;
     int DICT_SIZE = 20000;
 
@@ -44,7 +46,7 @@ int main()
     char *routes[len_routes];
     char *sequences[len_routes];
     char *busstop_names_routes[len_routes];
-
+    
     
     read_file(num_busstops, "bus_data/names.txt", &busstop_names, 1);
     read_file(num_busstops, "bus_data/location_n.txt", &location_n, 0);
@@ -54,6 +56,9 @@ int main()
     read_file(len_routes, "bus_sequences/stop_name.txt", &busstop_names_routes, 1);
 
     bucket * busstop_hashtable[DICT_SIZE];
+
+    neighbour* bus_graph[num_busstops]; // adjacency linked 
+
     for (int i=0; i < DICT_SIZE; i++) {
         busstop_hashtable[i] = NULL;
     }
@@ -66,6 +71,7 @@ int main()
         bs->northing = atoi(location_n[i]);
         bs->easting = atoi(location_e[i]);
         bs->name = busstop_names[i];
+        bs->id = i;
         // buses * buslist = malloc(sizeof(buses));
         // buslist = NULL;
         // bs->bus_list = buslist;
@@ -130,12 +136,8 @@ int main()
             
             nemp ++;
             // free(buk);
-
-
         }
     }
-
-
 
     // num empty not useful anymore, using num_notfound instead !!
     // printf("END\n");
@@ -158,4 +160,44 @@ int main()
 
 
     printf("\n\n num notfound: %i\n\n", num_notfound);
+
+    
+    int num_1 = 120;
+    char * bus1[num_1];
+
+    read_file(num_1, "data_processing/bus_times/1.txt", &bus1, 0);
+
+    for (int i=0; i < num_1; i ++) {
+        printf("\n%s", bus1[i]);
+    }
+
+    
+    char routei[10];
+    char arrival_mins[2];
+    char name[50];
+    for ( int i=0 ; i < 10 ; i ++ ) {
+        memcpy(routei, &(bus1[i][0]), sizeof(*(bus1[i])) );
+        memcpy(arrival_mins, &(bus1[i][4]), 2 * sizeof(*(bus1[i])) );
+        printf("\n bus1[i]: %s", bus1[i]);
+        printf("\nsize bus1: %lu", sizeof(bus1[i]));
+
+        // memcpy(name, &(bus1[i][10]), sizeof(bus1[i]) - 9 * sizeof(*(bus1[i])) );
+
+        printf("\n%s", routei);
+        printf("\n%i", atoi(arrival_mins));
+        printf("\n%s", name);
+
+    }
+
+
+
+
+    // for ( int i=0; i < 1000; i++ ) {
+
+    // }
+
+    
+
+
+
 }
