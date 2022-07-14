@@ -6,9 +6,18 @@
 /*
 
 TODO
+
+1. make python script to request bus times for all bus routes, parse the json and write
+    relevant info into text file 
+2. read the text file in main.c and construct graph (step 3.)
+3. pre compute edge times using api: https://api.tfl.gov.uk/line/2/arrivals (python) for each bus route
+    since live bus predictions use same estimate (doesn't take traffic etc into account)
+
+
 1. build bus route graph
 2. implement dijkstras on graph
 3. request bus times 
+ PROBLEM... many bus routes are strings not numbers so find_in_bucket doesn't find them e.g. N2 bus
 
 */
 
