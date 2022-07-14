@@ -162,7 +162,7 @@ int main()
     printf("\n\n num notfound: %i\n\n", num_notfound);
 
     
-    int num_1 = 120;
+    int num_1 = 130;
     char * bus1[num_1];
 
     read_file(num_1, "data_processing/bus_times/1.txt", &bus1, 0);
@@ -179,13 +179,13 @@ int main()
         memcpy(routei, &(bus1[i][0]), sizeof(*(bus1[i])) );
         memcpy(arrival_mins, &(bus1[i][4]), 2 * sizeof(*(bus1[i])) );
         printf("\n bus1[i]: %s", bus1[i]);
-        printf("\nsize bus1: %lu", sizeof(bus1[i]));
+        // printf("\nsize bus1: %lu", sizeof(bus1[i]));
 
         // memcpy(name, &(bus1[i][10]), sizeof(bus1[i]) - 9 * sizeof(*(bus1[i])) );
 
         printf("\n%s", routei);
         printf("\n%i", atoi(arrival_mins));
-        printf("\n%s", name);
+        // printf("\n%s", name);
 
     }
 

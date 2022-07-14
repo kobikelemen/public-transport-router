@@ -49,7 +49,7 @@ for i in range(len(bus_routes)):
         # time_to_arrival = dt.strftime("%H:%M:%S")
         time_to_arrival = str(dt)
 
-        
+        length = len(j["lineName"]) + len(time_to_arrival) + len(j["stationName"]) + 4
         fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
         # fwrite.write("lineName : " + j["lineName"] + "\n")
         # fwrite.write("stationName : " + j["stationName"] + "\n")
