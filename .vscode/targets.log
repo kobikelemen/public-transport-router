@@ -6,13 +6,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Tue Jul 12 20:48:22 2022
+# Make data base, printed on Sat Jul 16 11:41:13 2022
 
 # Variables
 
- 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -42,13 +40,13 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/kk/r4qs20xx1pbcd8xfjh2_6xtr0000gn/T/vscode-ipc-eace7dc0-7b28-47dd-86d8-2699e6039ac9.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/kk/r4qs20xx1pbcd8xfjh2_6xtr0000gn/T/vscode-ipc-9a603a08-f78b-4fec-8e06-77bb58b7f220.sock
 # environment
 VSCODE_CWD = /
 # environment
 PATH = /Users/kobikelemen/opt/anaconda3/bin:/Users/kobikelemen/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/kobikelemen/flutter/bin
 # environment
-LaunchInstanceID = E429EBB4-9DA9-4D5E-A1C4-D6E128549B55
+LaunchInstanceID = 29120ECD-5B29-4FC2-A2E3-DD28DB1D29E4
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -56,7 +54,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.0OojEa0ysN/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.2rPnvYOkAI/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -144,7 +142,7 @@ LC_ALL = C
 # environment
 CONDA_PYTHON_EXE = /Users/kobikelemen/opt/anaconda3/bin/python
 # environment
-SECURITYSESSIONID = 186bf
+SECURITYSESSIONID = 186aa
 # automatic
 ^F = $(notdir $^)
 # default
@@ -152,14 +150,13 @@ SUFFIXES :=
 # environment
 _CE_M = 
 # default
- 
 .INCLUDE_DIRS = /usr/local/include
 # environment
 MAKELEVEL := 0
 # environment
 CONDA_PREFIX = /Users/kobikelemen/opt/anaconda3
 # environment
-VSCODE_PID = 1650
+VSCODE_PID = 454
 # environment
 _CE_CONDA = 
 # environment
@@ -173,9 +170,9 @@ LANG = C
 
 # Directories
 
-# . (device 16777221, inode 64857372): 24 files, no impossibilities.
+# . (device 16777221, inode 64857372): 25 files, no impossibilities.
 
-# 24 files, no impossibilities in 1 directories.
+# 25 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -185,11 +182,8 @@ LANG = C
 
 bus_network.o: bus_network.c
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-10 17:25:39
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  Modification time never checked.
+#  File has not been updated.
 #  commands to execute (from `Makefile', line 16):
 	$(CC) $(CFLAGS) -c bus_network.c
 	
@@ -205,11 +199,8 @@ all: mainapp
 
 useful.o: useful.c
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-06 17:17:28
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  Modification time never checked.
+#  File has not been updated.
 #  commands to execute (from `Makefile', line 19):
 	$(CC) $(CFLAGS) -c useful.c
 	
@@ -217,7 +208,7 @@ useful.o: useful.c
 # Not a target:
 main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-12 20:34:38
+#  Last modified 2022-07-14 23:53:00
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -225,28 +216,11 @@ main.c:
 
 mainapp: main.o bus_network.o useful.o
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: `'
 #  Last modified 2022-07-12 20:33:51
 #  File has been updated.
 #  Needs to be updated (-q is set).
-# automatic
-# @ := mainapp
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := main.o bus_network.o useful.o
-# automatic
-# | := 
-# automatic
-# < := main.o
-# automatic
-# ^ := main.o bus_network.o useful.o
-# automatic
-# ? := main.o
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
+# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 #  commands to execute (from `Makefile', line 10):
 	$(CC) $(CFLAGS) main.o bus_network.o useful.o -o main
 	
@@ -268,26 +242,19 @@ Makefile:
 
 # Not a target:
 bus_network.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-07-10 17:25:37
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 useful.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-07-06 16:59:26
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -301,11 +268,28 @@ clean:
 
 main.o: main.c
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-12 20:34:51
+#  Implicit/static pattern stem: `'
+#  Last modified 2022-07-14 23:52:10
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := main.o
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := main.c
+# automatic
+# | := 
+# automatic
+# < := main.c
+# automatic
+# ^ := main.c
+# automatic
+# ? := main.c
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
 #  commands to execute (from `Makefile', line 13):
 	$(CC) $(CFLAGS) -c main.c
 	
@@ -323,6 +307,6 @@ main.o: main.c
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Jul 12 20:48:22 2022
+# Finished Make data base on Sat Jul 16 11:41:13 2022
 
  
