@@ -94,14 +94,25 @@ void append_to_bucket(bucket * b, bucket * a)
 }
 
 
+
+// bucket * find_forreal(bucket ** buk, char * busstop_name)
+// {
+
+//     if (strcmp((*buk)->b->name, busstop_name) == 0) {
+        
+//         // append_buses((&(*buk)->b));
+//         return *buk;
+//     }
+
+//     if ((*buk)->next == NULL) {
+//         return 2;
+//     }
+//     find_forreal(&((*buk)->next), busstop_name);
+// }
+
+
 int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 {
-    
-    // char * t = "MARHAM GARDENS";
-    // if (strcmp((*buk)->b->name, t) == 0) {
-    //     printf("\n\n%s FOUND, add busroute: %i\n", t,add_busroute);
-    //     return 1;
-    // }
 
     if (strcmp((*buk)->b->name, busstop_name) == 0) {
         
@@ -115,5 +126,21 @@ int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
     
     find_in_bucket(&((*buk)->next), busstop_name, add_busroute);
 }
+
+
+void add_neighbour(neighbour ** n, bucket ** b, bucket ** bnext, char * busnum, int dt)
+{
+    strcpy((*n)->bus_number, busnum);
+    (*n)->time = dt;
+    (*n)->next = NULL;
+
+
+    while ( strcmp((*bnext)->b->name, ) )
+
+
+}
+
+
+
 
 // tfl.gov.uk/tfl/syndication/feeds/bus-sequences.csv

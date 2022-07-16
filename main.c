@@ -114,7 +114,7 @@ int main()
     }
 
 
-    neighbour* bus_graph[num_busstops]; // adjacency linked 
+    
 
     int num_notfound;
     int hnext;
@@ -126,11 +126,20 @@ int main()
         bucket * boocket = busstop_hashtable[h];
         int status = 0;
 
-        if (i < max-1) {
-            hnext = hash(busstop_names_routes[i+1], DICT_SIZE, MAX_WORD);
-            bucket * boocketnext = busstop_hashtable[hnext];
-
-        }
+        // if (i < max-1) {
+        //     hnext = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
+        //     bucket * boocketnext = busstop_hashtable[hnext];
+        //     if (boocketnext == NULL) {
+        //         printf("ITE\n");
+        //     }
+        //     bucket * booo = malloc(sizeof(bucket));
+        //     booo = find_forreal(&boocketnext, busstop_names_routes[i]);
+        //     // printf("YO\n");
+        //     if (booo == NULL) {
+        //         printf("ERROR\n");
+        //     }
+        //     // printf("%s\n", booo->b->name);
+        // }
 
         if (boocket == NULL) {
             continue;
@@ -139,9 +148,9 @@ int main()
             status = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
             
             if (status == 2) {
+                printf("NOTT\n");
                 num_notfound++;
             }
-           
         }
     }
 
@@ -163,10 +172,56 @@ int main()
     
     
 
-    // int h;
-    // for (int i=0; i < 56; i ++ ) { // do 1 bus only first
-    //     h = hash()
-    // }
+    int h;
+    int max = 110;
+    int num_times = num_1;
+
+    neighbour* bus_graph[num_busstops]; // adjacency linked 
+
+    for (int i=0; i < max - 1; i +=2 ) { // do 1 bus only first
+    
+        if (atoi(sequences[i]) + 1 == atoi(sequences[i+1])) {
+
+            neighbour *nb = malloc(sizeof(neighbour));
+
+
+
+            h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
+            hnext = hash(busstop_names_routes[i+1], DICT_SIZE, MAX_WORD);
+            bucket * buk = busstop_hashtable[h];
+            bucket * buknext = busstop_hashtable[hnext];
+
+            int t;
+            int tnext;
+
+            // for (int j=0; j < num_times; j ++ ) {
+            int cond1 = 0;
+            int cond2 = 0;
+            int j = 0;
+
+            while (cond1 != 1 && cond2 != 1) { // find arrival time
+                if ( strcmp(busstop_names_routes[i], bsnames[j]) == 0) {
+                    t = atoi(arrival_mins[j]);
+                    cond1 = 1;
+                }
+                if ( strcmp(busstop_names_routes[i+1], bsnames[j]) == 0) {
+                    tnext = atoi(arrival_mins[j]);
+                    cond2 = 1;
+                }
+                j++;
+            }
+
+            int arrv_time = tnext - t;
+
+
+
+            int dtime = atoi(arrival_mins[i+1]) - atoi(arrival_mins[i]);
+            
+            add_neighbour(&nb, &buk, &buknext, routes[i], arrv_time);
+
+        }
+
+    }
 
 
 
