@@ -12,7 +12,7 @@ TODO
 2. read the text file in main.c and construct graph (step 3.)
 3. pre compute edge times using api: https://api.tfl.gov.uk/line/2/arrivals (python) for each bus route
     since live bus predictions use same estimate (doesn't take traffic etc into account)
-
+4. convert target locatino into a coordinate
 
 1. build bus route graph
 2. implement dijkstras on graph
@@ -31,8 +31,6 @@ walking distance to station
 
 int main()
 {
-
-    
 
     int MAX_WORD = 256;
     int DICT_SIZE = 20000;
@@ -57,7 +55,7 @@ int main()
 
     bucket * busstop_hashtable[DICT_SIZE];
 
-    neighbour* bus_graph[num_busstops]; // adjacency linked 
+    
 
     for (int i=0; i < DICT_SIZE; i++) {
         busstop_hashtable[i] = NULL;
@@ -96,53 +94,56 @@ int main()
         }
         
     }
-    
-
-    int emp = 0;
-    int nemp = 0;
-    int num_notfound;
-
-    for (int i=0; i < len_routes; i++) {
-        h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
-        bucket * boocket = busstop_hashtable[h];
-        char * s = busstop_names_routes[i]; 
-        int status = 0;
 
 
-        if (boocket == NULL) {
-            emp++;
-        }
-        
-        else {
+    int num_1 = 110;
+    char * bus1[num_1];
+    char bus_nums[num_1][1];
+    char arrival_mins[num_1][2];
+    char bsnames[num_1][50];
 
-            printf("\ni: %i\n", i);            
-            bucket * buk = malloc(sizeof(bucket));
+    read_file(num_1, "data_processing/bus_times/1.txt", &bus1, 0);
 
-            status = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
-            
-            if (status == 1) {
-                exit(1);
-            } else if (status == 2) {
-                num_notfound++;
-            }
-
-            
-            // if (buk == NULL) {
-            //     printf("buk == NULL, print bucket:\n");
-            //     print_bucket(boocket);
-            //     emp++;
-            //     continue;
-            // }
-            
-            nemp ++;
-            // free(buk);
-        }
+    for (int i=0; i < num_1; i ++) {
+        memcpy(bus_nums[i], &(bus1[i][0]), sizeof(*(bus1[i])));
+        memcpy(arrival_mins[i], &(bus1[i][4]), 2 * sizeof(*(bus1[i])) );
+        memcpy(bsnames[i], &(bus1[i][10]), (strlen(bus1[i]) - 10) * sizeof(*(bus1[i])));        
+        printf("\nroute: %i", atoi(bus_nums[i]));
+        printf("\nmins: %i", atoi(arrival_mins[i]));
+        printf("\nname:%s", bsnames[i]);
     }
 
-    // num empty not useful anymore, using num_notfound instead !!
-    // printf("END\n");
-    // printf("num empty:  %i \n", emp);
-    // printf("num not empty:  %i \n\n\n", nemp);
+
+    neighbour* bus_graph[num_busstops]; // adjacency linked 
+
+    int num_notfound;
+    int hnext;
+
+    int max = 56;
+
+    for (int i=0; i < max; i++) {
+        h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
+        bucket * boocket = busstop_hashtable[h];
+        int status = 0;
+
+        if (i < max-1) {
+            hnext = hash(busstop_names_routes[i+1], DICT_SIZE, MAX_WORD);
+            bucket * boocketnext = busstop_hashtable[hnext];
+
+        }
+
+        if (boocket == NULL) {
+            continue;
+        } else {
+            bucket * buk = malloc(sizeof(bucket));
+            status = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
+            
+            if (status == 2) {
+                num_notfound++;
+            }
+           
+        }
+    }
 
 
     for (int n = 0; n < 10; n++) {
@@ -152,9 +153,7 @@ int main()
             for (int p=0; p < 20; p++) {
                 printf("\t%i", busstop_hashtable[n]->b->bus_list[p]);
             }
-
         printf("\n");   
-
         }
     }
 
@@ -162,50 +161,13 @@ int main()
     printf("\n\n num notfound: %i\n\n", num_notfound);
 
     
-    int num_1 = 110;
-    char * bus1[num_1];
+    
 
-    char bus_routes[num_1][1];
-    char arrival_mins[num_1][2];
-    char bsnames[num_1][50];
+    // int h;
+    // for (int i=0; i < 56; i ++ ) { // do 1 bus only first
+    //     h = hash()
+    // }
 
-    read_file(num_1, "data_processing/bus_times/1.txt", &bus1, 0);
-
-
-    int b1 = 1;
-    int b2 = 9;
-    int endlen;
-
-    for (int i=0; i < num_1; i ++) {
-        // printf("\n%s", bus1[i]);
-
-        
-
-        memcpy(bus_routes[i], &(bus1[i][0]), sizeof(*(bus1[i])));
-        memcpy(arrival_mins[i], &(bus1[i][4]), 2 * sizeof(*(bus1[i])) );
-
-
-        // char *p = & (*bus1[i]);
-        // for (int j=0; j < 10; j ++) {
-        //     p++; // now points to start of name part
-        // }
-
-        // endlen = 0;
-
-        // while (strcmp(*p, "\0") != 0) {
-        //     p++;
-        //     endlen++;
-        // }
-
-
-        memcpy(bsnames[i], &(bus1[i][10]), (strlen(bus1[i]) - 10) * sizeof(*(bus1[i])));        
-
-        printf("\nroute: %i", atoi(bus_routes[i]));
-        printf("\nmins: %i", atoi(arrival_mins[i]));
-        printf("\nname:%s", bsnames[i]);
-
-        
-    }
 
 
 }

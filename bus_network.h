@@ -44,6 +44,8 @@ typedef struct {
 } neighbour;
 
 
+// void add_neighbour(neighbour ** n, )
+
 // typedef struct bus_network
 // {
 //     int num_busstops;
