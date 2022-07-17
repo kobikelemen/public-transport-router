@@ -179,7 +179,7 @@ int main()
 
     
     // int h;
-    int max = 110;
+    int max = 27;
     int num_times = num_1;
 
     neighbour* bus_graph[num_busstops]; // adjacency list 
@@ -190,7 +190,7 @@ int main()
     //     printf("%s\n", arrival_mins[x]);
     // }
 
-    for (int i=0; i < max - 1; i +=2 ) { // do 1 bus only first
+    for (int i=0; i < max - 1; i ++ ) { // do 1 bus only first
     
         if (atoi(sequences[i]) + 1 == atoi(sequences[i+1])) {
 
@@ -207,7 +207,9 @@ int main()
             int cond2 = 0;
             int j = 0;
 
-            while ((cond1 != 1 && cond2 != 1 ) || j >= num_1-1) { // find arrival time
+            printf("LOOKING FOR: %s AND %s\n", busstop_names_routes[i], busstop_names_routes[i+1]);
+
+            while ((cond1 != 1 && cond2 != 1 ) || j <= num_1-1) { // find arrival time
 
                 if ( strcmp(busstop_names_routes[i], bsnames[j]) == 0) {
                     // printf("t: %s\n", arrival_mins[j]);
@@ -224,7 +226,7 @@ int main()
 
             int arrv_time = tnext - t;
 
-            // printf("arrv time: %i\n", arrv_time);
+            printf("arrv time: %i\n", arrv_time);
             
             // add_neighbour(&nb, &buk, &buknext, routes[i], arrv_time);
 
