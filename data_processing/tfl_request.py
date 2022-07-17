@@ -33,14 +33,10 @@ while seq[i] > seq[i-1]:
     
 
 
-
-
 # for i in range(len(bus_routes)):
 for i in range(1):
 
     routei = bus_routes[i]
-    minbustimes = {}
-
     bustimes= {}
 
     fwrite = open("bus_times/"+ routei+ ".txt", "w+")
@@ -50,7 +46,6 @@ for i in range(1):
     while response.status_code != 200: 
         time.sleep(15)
         response = requests.get(url)
-        
     json = response.json()
     for j in json:
 
@@ -63,16 +58,15 @@ for i in range(1):
             dt = arrival_time - time_stamp
             time_to_arrival = str(dt)
 
-            length = len(j["lineName"]) + len(time_to_arrival) + len(j["stationName"]) + 4
-            fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
-
+            # length = len(j["lineName"]) + len(time_to_arrival) + len(j["stationName"]) + 4
+            # fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
 
             if j["stationName"].upper() in bustimes:
                 bustimes[j["stationName"].upper()].append(int(time_to_arrival[2:4]))
+                bustimes[j["stationName"].upper()].sort()
             else:
                 bustimes[j["stationName"].upper()] = [int(time_to_arrival[2:4])]
-        # else:
-        #     print('\n\nNOPE\n\n')
+
         for key, value in j.items():
             print(key, ":", value)
         print('\n\n\n\n')
@@ -89,4 +83,51 @@ for i in bsorder:
 
     except:
         fail += 1
-print('fails: ', fail)
+print('\nfails: ', fail)
+
+
+journeytimes = []
+
+# print(bustimes[bsorder[0]))
+prev = min(bustimes[bsorder[0]])
+journeytimes.append(prev)
+# print(bustimes)
+# print(bsorder)
+prevmin = min(bustimes[bsorder[0]])
+
+difs = []
+
+for i in bsorder[1:]:
+    try:
+        times = bustimes[i]
+    except:
+        continue
+    check = False
+    for t in times:
+        if t >= prev:
+            difs.append(t-prev)
+            prev = t
+            journeytimes.append(prev)
+            check = True
+            
+            break
+    if not check:
+        prev = prevmin
+        for t in times:
+            if t >= prev:
+                difs.append(t-prev)
+                prev = t
+                journeytimes.append(prev)
+                check = True
+                break
+    prevmin = min(times)
+
+print(journeytimes)
+print(difs)
+
+
+f = open('bus_times/1dt.txt', 'w')
+
+for i in difs:
+    f.write(str(i) + '\n')
+
