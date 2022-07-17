@@ -115,7 +115,6 @@ int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 {
 
     if (strcmp((*buk)->b->name, busstop_name) == 0) {
-        
         append_buses((&(*buk)->b), add_busroute);
         return 0;
     }
@@ -135,7 +134,7 @@ void add_neighbour(neighbour ** n, bucket ** b, bucket ** bnext, char * busnum, 
     (*n)->next = NULL;
 
 
-    while ( strcmp((*bnext)->b->name, ) )
+    // while ( strcmp((*bnext)->b->name, ) )
 
 
 }

@@ -98,30 +98,39 @@ int main()
 
     int num_1 = 110;
     char * bus1[num_1];
-    char bus_nums[num_1][1];
-    char arrival_mins[num_1][2];
+    char bus_nums[num_1][2];
+    char arrival_mins[num_1][3];
     char bsnames[num_1][50];
 
     read_file(num_1, "data_processing/bus_times/1.txt", &bus1, 0);
 
     for (int i=0; i < num_1; i ++) {
-        memcpy(bus_nums[i], &(bus1[i][0]), sizeof(*(bus1[i])));
-        memcpy(arrival_mins[i], &(bus1[i][4]), 2 * sizeof(*(bus1[i])) );
-        memcpy(bsnames[i], &(bus1[i][10]), (strlen(bus1[i]) - 10) * sizeof(*(bus1[i])));        
-        printf("\nroute: %i", atoi(bus_nums[i]));
-        printf("\nmins: %i", atoi(arrival_mins[i]));
-        printf("\nname:%s", bsnames[i]);
+        memcpy(bus_nums[i], &(bus1[i][0]), 1);
+        // strncpy(arrival_mins[i], &(bus1[i][4]), 2 * sizeof(*(bus1[i])) );
+        memcpy(arrival_mins[i], &(bus1[i][4]), 2);
+        memcpy(bsnames[i], &(bus1[i][10]), strlen(bus1[i]) - 10);
+        bus_nums[i][1] = '\0';
+        arrival_mins[i][2] = '\0';
+        bsnames[i][strlen(bus1[i]) - 10 + 1] = '\0';
+        // strncpy(arrival_mins[i], bus1[i] + 4, strlen(bus1[i]) - 4);
+
+
+        // printf("\nname:%s", bsnames[i]);
+    }
+
+    for (int i=0; i < 110; i ++ ) {
+        printf("\nMIN: %s", arrival_mins[i]);
     }
 
 
     
 
-    int num_notfound;
-    int hnext;
+    int num_notfound = 0;
+    // int hnext;
 
-    int max = 56;
+    // int max = 56;
 
-    for (int i=0; i < max; i++) {
+    for (int i=0; i < len_routes; i++) {
         h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
         bucket * boocket = busstop_hashtable[h];
         int status = 0;
@@ -142,19 +151,18 @@ int main()
         // }
 
         if (boocket == NULL) {
-            continue;
+            continue;;
         } else {
             bucket * buk = malloc(sizeof(bucket));
             status = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
             
             if (status == 2) {
-                printf("NOTT\n");
                 num_notfound++;
             }
         }
     }
 
-
+    
     for (int n = 0; n < 10; n++) {
         if (busstop_hashtable[n] != NULL ) {
             
@@ -170,13 +178,17 @@ int main()
     printf("\n\n num notfound: %i\n\n", num_notfound);
 
     
-    
-
-    int h;
+    // int h;
     int max = 110;
     int num_times = num_1;
 
-    neighbour* bus_graph[num_busstops]; // adjacency linked 
+    neighbour* bus_graph[num_busstops]; // adjacency list 
+
+
+    // printf("\n\ntimes:\n");
+    // for (int x=0; x < num_1; x++) {
+    //     printf("%s\n", arrival_mins[x]);
+    // }
 
     for (int i=0; i < max - 1; i +=2 ) { // do 1 bus only first
     
@@ -184,27 +196,26 @@ int main()
 
             neighbour *nb = malloc(sizeof(neighbour));
 
-
-
-            h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
-            hnext = hash(busstop_names_routes[i+1], DICT_SIZE, MAX_WORD);
+            int h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
+            int hnext = hash(busstop_names_routes[i+1], DICT_SIZE, MAX_WORD);
             bucket * buk = busstop_hashtable[h];
             bucket * buknext = busstop_hashtable[hnext];
 
             int t;
             int tnext;
-
-            // for (int j=0; j < num_times; j ++ ) {
             int cond1 = 0;
             int cond2 = 0;
             int j = 0;
 
-            while (cond1 != 1 && cond2 != 1) { // find arrival time
+            while ((cond1 != 1 && cond2 != 1 ) || j >= num_1-1) { // find arrival time
+
                 if ( strcmp(busstop_names_routes[i], bsnames[j]) == 0) {
+                    // printf("t: %s\n", arrival_mins[j]);
                     t = atoi(arrival_mins[j]);
                     cond1 = 1;
                 }
                 if ( strcmp(busstop_names_routes[i+1], bsnames[j]) == 0) {
+                    // printf("tnext: %s\n", arrival_mins[j]);
                     tnext = atoi(arrival_mins[j]);
                     cond2 = 1;
                 }
@@ -213,15 +224,14 @@ int main()
 
             int arrv_time = tnext - t;
 
-
-
-            int dtime = atoi(arrival_mins[i+1]) - atoi(arrival_mins[i]);
+            // printf("arrv time: %i\n", arrv_time);
             
-            add_neighbour(&nb, &buk, &buknext, routes[i], arrv_time);
+            // add_neighbour(&nb, &buk, &buknext, routes[i], arrv_time);
 
         }
 
     }
+    
 
 
 
