@@ -25,6 +25,8 @@ filebs = open("../bus_sequences/stop_name.txt", "r")
 bs = filebs.readlines()
 
 i = 1
+
+bsorder.append(bs[0].strip())
 while seq[i] > seq[i-1]:
     bsorder.append(bs[i].strip())
     i+=1
@@ -52,50 +54,32 @@ for i in range(1):
     json = response.json()
     for j in json:
 
-        at = j["expectedArrival"][11:-1]
-        ts = j["timestamp"][11:18]
-        x = "%H:%M:%S"
-        arrival_time = datetime.strptime(at, x)
-        time_stamp = datetime.strptime(ts, x)
-        dt = arrival_time - time_stamp
-        time_to_arrival = str(dt)
+        if j["destinationName"].upper() in bsorder[-1]: 
+            at = j["expectedArrival"][11:-1]
+            ts = j["timestamp"][11:18]
+            x = "%H:%M:%S"
+            arrival_time = datetime.strptime(at, x)
+            time_stamp = datetime.strptime(ts, x)
+            dt = arrival_time - time_stamp
+            time_to_arrival = str(dt)
 
-        length = len(j["lineName"]) + len(time_to_arrival) + len(j["stationName"]) + 4
-        fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
+            length = len(j["lineName"]) + len(time_to_arrival) + len(j["stationName"]) + 4
+            fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
 
 
-        if j["stationName"].upper() in bustimes:
-            bustimes[j["stationName"].upper()].append(int(time_to_arrival[2:4]))
-        else:
-            bustimes[j["stationName"].upper()] = [int(time_to_arrival[2:4])]
-        
-        # if j["stationName"].upper() == "ANCHOR STREET":
-        #     print(time_to_arrival)
-
-        # if j["stationName"] in minbustimes:
-        #     # print('time_to_arrival: ', time_to_arrival)
-        #     # print('minbustimes[]: ', minbustimes[j["stationName"]])
-        #     if int(time_to_arrival[2:4]) < int(minbustimes[j["stationName"]][2:4]):
-        #         minbustimes[j["stationName"]] = time_to_arrival
-        #         lines = fwrite.readlines()
-        #         for n in range(len(lines)):
-        #             if j["stationName"] in lines[n]:
-        #                 lines[n] = j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n'
-        #                 fwrite.writelines(lines)
-
+            if j["stationName"].upper() in bustimes:
+                bustimes[j["stationName"].upper()].append(int(time_to_arrival[2:4]))
+            else:
+                bustimes[j["stationName"].upper()] = [int(time_to_arrival[2:4])]
         # else:
-        #     fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
-        #     minbustimes[j["stationName"]] = time_to_arrival
+        #     print('\n\nNOPE\n\n')
+        for key, value in j.items():
+            print(key, ":", value)
+        print('\n\n\n\n')
+
     fwrite.close()
 
-    #     for key, value in j.items():
-    #         print(key, ":", value)
-    #     print('\n\n\n\n')
-    # print('routei: ', routei)
 
-
-# print(bsorder, '\n\n')
-# print(bustimes)
 
 fail = 0
 
