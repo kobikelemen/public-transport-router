@@ -44,7 +44,6 @@ typedef struct {
 } neighbour;
 
 
-// void add_neighbour(neighbour ** n, )
 
 // typedef struct bus_network
 // {
@@ -81,6 +80,6 @@ void print_dict(bucket * hash_table[], int DICT_SIZE);
 void append_to_bucket(bucket * b, bucket * a);
 int find_in_bucket(bucket ** b, char * busstop_name, int add_busroute);
 void print_busstops(bucket * hashtable[], int DICT_SIZE);
-void add_neighbour(neighbour ** n, bucket ** b, bucket ** bnext, char * busnum, int dt);
+int add_neighbour(neighbour ** n, bucket ** b, bucket ** bnext, char * busnum, int dt, char * bsname, char * bsnamenext);
 
 #endif 

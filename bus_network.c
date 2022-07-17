@@ -127,14 +127,35 @@ int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 }
 
 
-void add_neighbour(neighbour ** n, bucket ** b, bucket ** bnext, char * busnum, int dt)
+int add_neighbour(neighbour ** n, bucket ** b, bucket ** bnext, char * busnum, int dt, char * bsname, char * bsnamenext)
 {
     strcpy((*n)->bus_number, busnum);
     (*n)->time = dt;
     (*n)->next = NULL;
 
 
-    // while ( strcmp((*bnext)->b->name, ) )
+    while ( strcmp((*bnext)->b->name, bsnamenext) != 0) {
+        *bnext = (*bnext)->next;
+        if (*bnext == NULL) {
+            printf("BNEXT NOT FOUND!\n");
+            return -1;
+        }
+    }
+
+    while ( strcmp((*b)->b->name, bsname) != 0) {
+        *b = (*b)->next;
+        if (*b == NULL) {
+            printf("B NOT FOUND!\n");
+            return -1;
+        }
+    }
+
+    (*n)->node = (*bnext)->b;
+
+    return (*b)->b->id;
+
+
+    
 
 
 }
