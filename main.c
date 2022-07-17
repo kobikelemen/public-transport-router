@@ -97,30 +97,30 @@ int main()
 
 
     int num_1 = 110;
-    char * bus1[num_1];
-    char bus_nums[num_1][2];
-    char arrival_mins[num_1][3];
-    char bsnames[num_1][50];
+    // char * bus1[num_1];
+    // char bus_nums[num_1][2];
+    // char arrival_mins[num_1][3];
+    // char bsnames[num_1][50];
 
-    read_file(num_1, "data_processing/bus_times/1.txt", &bus1, 0);
+    // read_file(num_1, "data_processing/bus_times/1.txt", &bus1, 0);
 
-    for (int i=0; i < num_1; i ++) {
-        memcpy(bus_nums[i], &(bus1[i][0]), 1);
-        // strncpy(arrival_mins[i], &(bus1[i][4]), 2 * sizeof(*(bus1[i])) );
-        memcpy(arrival_mins[i], &(bus1[i][4]), 2);
-        memcpy(bsnames[i], &(bus1[i][10]), strlen(bus1[i]) - 10);
-        bus_nums[i][1] = '\0';
-        arrival_mins[i][2] = '\0';
-        bsnames[i][strlen(bus1[i]) - 10 + 1] = '\0';
-        // strncpy(arrival_mins[i], bus1[i] + 4, strlen(bus1[i]) - 4);
+    // for (int i=0; i < num_1; i ++) {
+    //     memcpy(bus_nums[i], &(bus1[i][0]), 1);
+    //     // strncpy(arrival_mins[i], &(bus1[i][4]), 2 * sizeof(*(bus1[i])) );
+    //     memcpy(arrival_mins[i], &(bus1[i][4]), 2);
+    //     memcpy(bsnames[i], &(bus1[i][10]), strlen(bus1[i]) - 10);
+    //     bus_nums[i][1] = '\0';
+    //     arrival_mins[i][2] = '\0';
+    //     bsnames[i][strlen(bus1[i]) - 10 + 1] = '\0';
+    //     // strncpy(arrival_mins[i], bus1[i] + 4, strlen(bus1[i]) - 4);
 
 
-        // printf("\nname:%s", bsnames[i]);
-    }
+    //     // printf("\nname:%s", bsnames[i]);
+    // }
 
-    for (int i=0; i < 110; i ++ ) {
-        printf("\nMIN: %s", arrival_mins[i]);
-    }
+    // for (int i=0; i < 110; i ++ ) {
+    //     printf("\nMIN: %s", arrival_mins[i]);
+    // }
 
 
     
@@ -177,9 +177,21 @@ int main()
 
     printf("\n\n num notfound: %i\n\n", num_notfound);
 
+
+    int num1stops = 25;
+    char * arrival_mins[num1stops];
+
+    read_file(num1stops, "data_processing/bus_times/1dt.txt", &arrival_mins, 0);
+
+
+
     
-    // int h;
-    int max = 27;
+
+
+
+    
+    
+    // int max = 27;
     int num_times = num_1;
 
     neighbour* bus_graph[num_busstops]; // adjacency list 
@@ -190,7 +202,7 @@ int main()
     //     printf("%s\n", arrival_mins[x]);
     // }
 
-    for (int i=0; i < max - 1; i ++ ) { // do 1 bus only first
+    for (int i=0; i < num1stops - 1; i ++ ) { // do 1 bus only first
     
         if (atoi(sequences[i]) + 1 == atoi(sequences[i+1])) {
 
@@ -209,20 +221,20 @@ int main()
 
             printf("LOOKING FOR: %s AND %s\n", busstop_names_routes[i], busstop_names_routes[i+1]);
 
-            while ((cond1 != 1 && cond2 != 1 ) || j <= num_1-1) { // find arrival time
+            // while ((cond1 != 1 && cond2 != 1 ) || j <= num_1-1) { // find arrival time
 
-                if ( strcmp(busstop_names_routes[i], bsnames[j]) == 0) {
-                    // printf("t: %s\n", arrival_mins[j]);
-                    t = atoi(arrival_mins[j]);
-                    cond1 = 1;
-                }
-                if ( strcmp(busstop_names_routes[i+1], bsnames[j]) == 0) {
-                    // printf("tnext: %s\n", arrival_mins[j]);
-                    tnext = atoi(arrival_mins[j]);
-                    cond2 = 1;
-                }
-                j++;
-            }
+            //     if ( strcmp(busstop_names_routes[i], bsnames[j]) == 0) {
+            //         // printf("t: %s\n", arrival_mins[j]);
+            //         t = atoi(arrival_mins[j]);
+            //         cond1 = 1;
+            //     }
+            //     if ( strcmp(busstop_names_routes[i+1], bsnames[j]) == 0) {
+            //         // printf("tnext: %s\n", arrival_mins[j]);
+            //         tnext = atoi(arrival_mins[j]);
+            //         cond2 = 1;
+            //     }
+            //     j++;
+            // }
 
             int arrv_time = tnext - t;
 

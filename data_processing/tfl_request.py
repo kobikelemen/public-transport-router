@@ -92,15 +92,16 @@ journeytimes = []
 prev = min(bustimes[bsorder[0]])
 journeytimes.append(prev)
 # print(bustimes)
-# print(bsorder)
+# print('\nbsorder: ',bsorder)
+# print('\nbustimes: ', bustimes)
 prevmin = min(bustimes[bsorder[0]])
-
 difs = []
-
 for i in bsorder[1:]:
     try:
         times = bustimes[i]
     except:
+        print('\nfail: ', i)
+        difs.append(2)
         continue
     check = False
     for t in times:
@@ -122,7 +123,7 @@ for i in bsorder[1:]:
                 break
     prevmin = min(times)
 
-print(journeytimes)
+# print(journeytimes)
 print(difs)
 
 
