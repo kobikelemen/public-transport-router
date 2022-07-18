@@ -127,13 +127,8 @@ int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 }
 
 
-int add_neighbour(neighbour ** n, bucket ** b, bucket ** bnext, char * busnum, int dt, char * bsname, char * bsnamenext)
+int add_neighbour(neighbour *bgraph[], bucket ** b, bucket ** bnext, char * busnum, int dt, char * bsname, char * bsnamenext)
 {
-    strcpy((*n)->bus_number, busnum);
-    (*n)->time = dt;
-    (*n)->next = NULL;
-
-
     while ( strcmp((*bnext)->b->name, bsnamenext) != 0) {
         *bnext = (*bnext)->next;
         if (*bnext == NULL) {
@@ -149,14 +144,13 @@ int add_neighbour(neighbour ** n, bucket ** b, bucket ** bnext, char * busnum, i
             return -1;
         }
     }
-
-    (*n)->node = (*bnext)->b;
+    bgraph[(*b)->b->id] = malloc(sizeof(neighbour));
+    strcpy(bgraph[(*b)->b->id], busnum);
+    (bgraph[(*b)->b->id])->time = dt;
+    (bgraph[(*b)->b->id])->next = NULL;
+    (bgraph[(*b)->b->id])->node = (*bnext)->b;
 
     return (*b)->b->id;
-
-
-    
-
 
 }
 

@@ -140,10 +140,15 @@ int main()
 
     neighbour* bus_graph[num_busstops]; // adjacency list 
 
+    for (int i=0; i < num_busstops; i ++ ) {
+        bus_graph[i] = NULL;
+    }
 
-    for (int i=0; i < num1stops - 1; i ++ ) { // do 1 bus only first
+    // 18951 num_busstops
 
-            neighbour *nb = malloc(sizeof(neighbour));
+    for (int i=0; i < num1stops-1; i ++ ) { // do 1 bus only first
+
+            // neighbour *nb = malloc(sizeof(neighbour));
 
             int h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
             int hnext = hash(busstop_names_routes[i+1], DICT_SIZE, MAX_WORD);
@@ -152,10 +157,16 @@ int main()
 
             // printf("LOOKING FOR: %s AND %s\n", busstop_names_routes[i], busstop_names_routes[i+1]);
 
-            int id = add_neighbour(&nb, &buk, &buknext, routes[i], atoi(arrival_mins[i]), busstop_names_routes[i], busstop_names_routes[i+1]);
-            printf("neighbour->node->name %s\n",nb->node->name);
-            bus_graph[id] = nb;
+            int id = add_neighbour(bus_graph, &buk, &buknext, routes[i], atoi(arrival_mins[i]), busstop_names_routes[i], busstop_names_routes[i+1]);
+            printf("neighbour->node->name %s\n",(bus_graph[id])->node->name);
+            printf("id %i\n", id);
 
-    }
+    }   
+
+    printf("END\n");
+
+    
+
+    printf("neighbour->node->name %s\n",bus_graph[9467]->node->name);
 
 }
