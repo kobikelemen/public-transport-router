@@ -71,42 +71,48 @@ for i in range(len(bus_routes)):
         
         for j in json:
 
-            # if "KING EDWARD STREET / ST PAULS STATION" in j["stationName"].upper() or "TOBACCO DOCK" in j["stationName"].upper():
+            if "BECKTON BUS STATION" in j["stationName"].upper():
 
-            #     print("\n\nFOUND!\n\n")
+                print("\n\nFOUND!\n")
 
-            #     print("destinationName: ", j["destinationName"], '\n\n')
-            #     for key, value in j.items():
-            #         print(key, ":", value)
-            #     print('\n\n\n\n')
+                print("destinationName: ", j["destinationName"], '\n\n')
+                for key, value in j.items():
+                    print(key, ":", value)
+                print('\n\n\n')
 
 
             disallowedchar = ".,'"
             dest = j["destinationName"].upper()
-            # for char in disallowedchar:
-            #     dest = dest.replace(char, "")
+            for char in disallowedchar:
+                dest = dest.replace(char, "")
+            
+            dest_words = dest.split()
 
-            if dest in bsorder[-1] or dest in bsorder[-2]: 
-                at = j["expectedArrival"][11:-1]
-                ts = j["timestamp"][11:18]
-                x = "%H:%M:%S"
-                arrival_time = datetime.strptime(at, x)
-                time_stamp = datetime.strptime(ts, x)
-                dt = arrival_time - time_stamp
-                time_to_arrival = str(dt)
+            for d in dest_words:
 
-                # length = len(j["lineName"]) + len(time_to_arrival) + len(j["stationName"]) + 4
-                # fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
+                if d in bsorder[-1] or dest in bsorder[-2]: 
+                    at = j["expectedArrival"][11:-1]
+                    ts = j["timestamp"][11:18]
+                    x = "%H:%M:%S"
+                    arrival_time = datetime.strptime(at, x)
+                    time_stamp = datetime.strptime(ts, x)
+                    dt = arrival_time - time_stamp
+                    time_to_arrival = str(dt)
 
-                stationname = j["stationName"].upper()
-                # for char in disallowedchar:
-                #     stationname = dest.replace(char, "")
+                    # length = len(j["lineName"]) + len(time_to_arrival) + len(j["stationName"]) + 4
+                    # fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
 
-                if stationname in bustimes:
-                    bustimes[stationname].append(int(time_to_arrival[2:4]))
-                    bustimes[stationname].sort()
-                else:
-                    bustimes[stationname] = [int(time_to_arrival[2:4])]
+                    stationname = j["stationName"].upper()
+                    # for char in disallowedchar:
+                    #     stationname = dest.replace(char, "")
+
+                    if stationname in bustimes:
+                        bustimes[stationname].append(int(time_to_arrival[2:4]))
+                        bustimes[stationname].sort()
+                    else:
+                        bustimes[stationname] = [int(time_to_arrival[2:4])]
+                    
+                    break
 
             # for key, value in j.items():
             #     print(key, ":", value)
