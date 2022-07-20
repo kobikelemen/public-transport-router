@@ -5,7 +5,6 @@
 
 
 /*
-
 TODO
 
 1. make python script to request bus times for all bus routes, parse the json and write
@@ -15,9 +14,6 @@ TODO
     since live bus predictions use same estimate (doesn't take traffic etc into account)
 4. convert target locatino into a coordinate
 
-1. build bus route graph
-2. implement dijkstras on graph
-3. request bus times 
  PROBLEM... many bus routes are strings not numbers so find_in_bucket doesn't find them e.g. N2 bus
 
 */
@@ -75,10 +71,7 @@ int main()
         bs->id = i;
 
         busstop_array[i] = bs;
-
-        // buses * buslist = malloc(sizeof(buses));
-        // buslist = NULL;
-        // bs->bus_list = buslist;
+        
 
         for (int n=0; n< 10; n++) {
             (bs->bus_list)[n] = 0; // init array of buses at busstop to 0s
@@ -101,23 +94,31 @@ int main()
     }
 
 
-    int num_1 = 110;
     int num_notfound = 0;
+    int num1stops = 28;
+
+    int bus1ids[num1stops];
 
     for (int i=0; i < len_routes; i++) {
         h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
         bucket * boocket = busstop_hashtable[h];
-        int status = 0;
+        int id;
         if (boocket == NULL) {
-            continue;;
+            continue;
         } else {
             bucket * buk = malloc(sizeof(bucket));
-            status = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
-            if (status == 2) {
+            id = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
+            if (id == -1) {
                 num_notfound++;
+            } else if (i < num1stops) {
+                bus1ids[i] = id;
             }
         }
     }
+
+    // for (int i=0; i < num1stops; i ++ ) {
+    //     busstop_array[i] = 
+    // }
 
     
     for (int n = 0; n < 10; n++) {
@@ -135,7 +136,6 @@ int main()
     printf("\n\n num notfound: %i\n\n", num_notfound);
 
 
-    int num1stops = 28;
     char * arrival_mins[num1stops];
 
     read_file(num1stops, "data_processing/bus_times/1dt.txt", &arrival_mins, 0);
@@ -176,6 +176,10 @@ int main()
     // }
     // printf("neighbour->node->name %s\n",bus_graph[9467]->node->name);
 
-    dijkstras(533290, 169280, 507500, 175800, bus_graph, busstop_array, num_busstops);
+
+    for (int i=0; i < num1stops; i ++ ) {
+        printf("busstop_array[i] %s\n", busstop_array[i]->name);
+    }
+    dijkstras(530000, 181430, 535460, 179490, bus_graph, busstop_array, num_busstops, bus1ids);
 
 }

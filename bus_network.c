@@ -116,11 +116,11 @@ int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 
     if (strcmp((*buk)->b->name, busstop_name) == 0) {
         append_buses((&(*buk)->b), add_busroute);
-        return 0;
+        return (*buk)->b->id;
     }
 
     if ((*buk)->next == NULL) {
-        return 2;
+        return -1;
     }
     
     find_in_bucket(&((*buk)->next), busstop_name, add_busroute);
@@ -149,9 +149,7 @@ int add_neighbour(neighbour *bgraph[], bucket ** b, bucket ** bnext, char * busn
     (bgraph[(*b)->b->id])->time = dt;
     (bgraph[(*b)->b->id])->next = NULL;
     (bgraph[(*b)->b->id])->node = (*bnext)->b;
-
     return (*b)->b->id;
-
 }
 
 
