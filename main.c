@@ -1,5 +1,6 @@
 #include "bus_network.h"
 #include "useful.h"
+#include "shortest_path.h"
 
 
 
@@ -55,6 +56,8 @@ int main()
 
     bucket * busstop_hashtable[DICT_SIZE];
 
+    bus_stop * busstop_array[num_busstops];
+
     
 
     for (int i=0; i < DICT_SIZE; i++) {
@@ -70,6 +73,9 @@ int main()
         bs->easting = atoi(location_e[i]);
         bs->name = busstop_names[i];
         bs->id = i;
+
+        busstop_array[i] = bs;
+
         // buses * buslist = malloc(sizeof(buses));
         // buslist = NULL;
         // bs->bus_list = buslist;
@@ -92,8 +98,8 @@ int main()
         } else {
             append_to_bucket(busstop_hashtable[h], buck);
         }
-        
     }
+
 
     int num_1 = 110;
     int num_notfound = 0;
@@ -102,14 +108,11 @@ int main()
         h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
         bucket * boocket = busstop_hashtable[h];
         int status = 0;
-
-
         if (boocket == NULL) {
             continue;;
         } else {
             bucket * buk = malloc(sizeof(bucket));
             status = find_in_bucket(&boocket, busstop_names_routes[i], atoi(routes[i]));
-            
             if (status == 2) {
                 num_notfound++;
             }
@@ -146,6 +149,8 @@ int main()
 
     // 18951 num_busstops
 
+
+    // build graph
     for (int i=0; i < num1stops-1; i ++ ) { // do 1 bus only first
 
             // neighbour *nb = malloc(sizeof(neighbour));
@@ -166,7 +171,11 @@ int main()
     printf("END\n");
 
     
+    // for (int i=0; i < num_busstops; i ++ ) {
+    //     printf("name: %s\n",(busstop_array[i])->name);
+    // }
+    // printf("neighbour->node->name %s\n",bus_graph[9467]->node->name);
 
-    printf("neighbour->node->name %s\n",bus_graph[9467]->node->name);
+    dijkstras(533290, 169280, 507500, 175800, bus_graph, busstop_array, num_busstops);
 
 }

@@ -1,22 +1,18 @@
 
 
-CC=clang
+# compiler:
+CC = gcc
 
-CFLAGS=-g
+# compiler flags: 
+CFLAGS  = -g -Wall
 
-all: mainapp
+# the build target executable:
+TARGET = main
 
-mainapp: main.o bus_network.o useful.o
-	$(CC) $(CFLAGS) main.o bus_network.o useful.o -o main
+# object files to build:
+OBJ = main.o bus_network.o useful.o shortest_path.o
 
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c
+all: $(TARGET)
 
-bus_network.o: bus_network.c
-	$(CC) $(CFLAGS) -c bus_network.c
-
-useful.o: useful.c
-	$(CC) $(CFLAGS) -c useful.c
-
-clean:
-	rm a.out *.o mainapp
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)

@@ -53,20 +53,8 @@ for i in range(len(bus_routes)):
             n+=1
         n += 1        
 
-
-        
         bustimes= {}
-
         fwrite = open("bus_times/"+ routei+ ".txt", "w+")
-
-        # url = 'https://api.tfl.gov.uk/line/'+routei+'/arrivals'
-        # print(url)
-        # response = requests.get(url)
-        # while response.status_code != 200: 
-        #     time.sleep(15)
-        #     response = requests.get(url)
-        # json = response.json()
-
 
         
         for j in json:
