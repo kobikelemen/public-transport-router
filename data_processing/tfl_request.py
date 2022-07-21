@@ -73,6 +73,7 @@ for i in range(len(bus_routes)):
             dest = j["destinationName"].upper()
             for char in disallowedchar:
                 dest = dest.replace(char, "")
+        
             
             dest_words = dest.split()
 
@@ -91,8 +92,9 @@ for i in range(len(bus_routes)):
                     # fwrite.write(j["lineName"] + " " +time_to_arrival + " " + j["stationName"].upper() + '\n')
 
                     stationname = j["stationName"].upper()
-                    # for char in disallowedchar:
-                    #     stationname = dest.replace(char, "")
+                    if "  " in stationname:
+                        stationname = stationname.replace("  ", " ")
+                        # print("\n\n", stationname, "\n\n")
 
                     if stationname in bustimes:
                         bustimes[stationname].append(int(time_to_arrival[2:4]))
@@ -121,6 +123,8 @@ for i in range(len(bus_routes)):
         print('\nfails: ', fail)
         print('bustimes: ',bustimes)
         print('\nbsorder: ',bsorder, '\n')
+        if routei == "106":
+            continue
         uhohs = 0
         journeytimes = []
         try:
@@ -131,13 +135,9 @@ for i in range(len(bus_routes)):
             #     prev[u] += 2
             uhohs += 1
 
-            
-
         journeytimes.append(prev)
         prevmin = prev
         difs = []
-        
-        
 
         for a in bsorder[1:]:
             try:

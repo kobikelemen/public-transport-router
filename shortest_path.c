@@ -12,7 +12,6 @@ float walk_time(int start_e, int end_e, int start_n, int end_n)
 
 
 
-
 void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_graph[], bus_stop * bs_array[], int num_bs, int testids[])
 {
     // use array for Q first then improve to priority queue
@@ -20,7 +19,6 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     float inf = 10e10;
     int prev[num_bs];
     float time[num_bs];
-    // bus_stop * Q[num_bs];
     int processed[num_bs];
 
     float min_time_toend = inf;
@@ -29,7 +27,6 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     for (int i=0; i < num_bs; i++) {
         time[i] = walk_time(start_e, (bs_array[i])->easting, start_n, (bs_array[i])->northing);
         prev[i] = -1;
-        // Q[i] = bs_array[i];
         processed[i] = 0;
     }
 
@@ -45,12 +42,9 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
 
     int numvisited = 0;
     
-
     while (!processed[u]) {
         numvisited ++;
         processed[u] = 1;
-        printf("bs_array[u] %s\n", bs_array[u]->name);
-
         float dist_toend = time[u] + walk_time((bs_array[u])->easting, end_e, (bs_array[u])->northing, end_n);
         if (dist_toend < min_time_toend) {
             min_time_toend = dist_toend;
@@ -83,16 +77,21 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
 
 
     int x = last_bs;
+    float min_time = 0;
+
     printf("\n\nbus path:   ");
     while (x != -1) {
         printf("%s, ", bs_array[x]->name);
+        printf(" %f ,", time[x]);
+        min_time += time[x];
         x = prev[x];
     }
+
+
     printf("\n");
 
-
     printf("numvisited: %i\n", numvisited);
-    printf("min timetoend: %f\n", min);    
+    printf("min timetoend: %f\n", min_time);    
     
 
 }   
