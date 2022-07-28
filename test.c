@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "bus_network.h"
+#include <time.h>
 
 
 int read_file(int num_lines, char * filename, char *(*text[]), int capital)
@@ -33,10 +34,17 @@ int main()
 {
 
 
-    char a[10] = "abcd";
-    char b[] = "efgh";
-    strcat(a,b);
-    printf("%s ", a);
+    // char a[10] = "abcd";
+    // char b[] = "efgh";
+    // strcat(a,b);
+    // printf("%s ", a);
+
+    // int r1 = rand();
+    // int r2 = rand();
+
+    srand( time(NULL) );
+    printf("\nrand: %i ", rand()%2+1);
+    printf("\nrand: %i ", rand()%2+1);
 
 
 

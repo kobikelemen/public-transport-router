@@ -1,6 +1,8 @@
 #include "bus_network.h"
 #include "useful.h"
 #include "shortest_path.h"
+#include <time.h>
+
 
 // changed one of MOORGATE STATION to LONDON WALL / MOORGATE STATION (next to LONDON WALL / MUSEUM OF LONDON for 100 bus) 
 
@@ -141,7 +143,7 @@ int main()
             num_busj ++;
         }
         
-        char * arrival_mins[num_busj];
+        // char * arrival_mins[num_busj];
 
         
         printf("\nj %i\n", j);
@@ -152,13 +154,15 @@ int main()
         printf("%s \n", s);
 
         
-        read_file(num_busj, s, &arrival_mins, 0);
+        // read_file(num_busj, s, &arrival_mins, 0);
 
 
         // 18951 num_busstops
 
 
         // build graph
+
+        srand( time(NULL) );
         
 
         for (int i=j; i < j+num_busj; i ++ ) { // do 1 bus only first
@@ -172,13 +176,13 @@ int main()
                 printf("\n i %i ", i);
                 printf("   bussstop_names_routes[i] %s",busstop_names_routes[i]);
                 printf("   bussstop_names_routes[i+1] %s\n",busstop_names_routes[i+1]);
-                int id = add_neighbour(bus_graph, &buk, &buknext, routes[i], atoi(arrival_mins[i-j]), busstop_names_routes[i], busstop_names_routes[i+1]);            
+                int id = add_neighbour(bus_graph, &buk, &buknext, routes[i], rand()%2 +1, busstop_names_routes[i], busstop_names_routes[i+1]);            
                 printf("\nhere");
                 if (id == -2 && i != j+num_busj-1) {
                     printf("\nhere2");
                     hnext = hash(busstop_names_routes[i+2], DICT_SIZE, MAX_WORD);
                     buknext = busstop_hashtable[hnext];
-                    id = add_neighbour(bus_graph, &buk, &buknext, routes[i], atoi(arrival_mins[i-j]), busstop_names_routes[i], busstop_names_routes[i+2]);
+                    id = add_neighbour(bus_graph, &buk, &buknext, routes[i], rand()%2 +1, busstop_names_routes[i], busstop_names_routes[i+2]);
                     i++;
                 }
                 
