@@ -1,6 +1,5 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/kobikelemen/Documents/computing/coding/c++/public-transport-router'
 make: Nothing to be done for `all'.
- 
 make: Leaving directory `/Users/kobikelemen/Documents/computing/coding/c++/public-transport-router'
  

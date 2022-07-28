@@ -95,21 +95,6 @@ void append_to_bucket(bucket * b, bucket * a)
 
 
 
-// bucket * find_forreal(bucket ** buk, char * busstop_name)
-// {
-
-//     if (strcmp((*buk)->b->name, busstop_name) == 0) {
-        
-//         // append_buses((&(*buk)->b));
-//         return *buk;
-//     }
-
-//     if ((*buk)->next == NULL) {
-//         return 2;
-//     }
-//     find_forreal(&((*buk)->next), busstop_name);
-// }
-
 
 int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 {
@@ -129,11 +114,16 @@ int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 
 int add_neighbour(neighbour *bgraph[], bucket ** b, bucket ** bnext, char * busnum, int dt, char * bsname, char * bsnamenext)
 {
+    if ((*bnext) == NULL) {
+        return -2;
+    } else if ((*b) == NULL) {
+        return -1;
+    }
     while ( strcmp((*bnext)->b->name, bsnamenext) != 0) {
         *bnext = (*bnext)->next;
         if (*bnext == NULL) {
             printf("BNEXT NOT FOUND!\n");
-            return -1;
+            return -2;
         }
     }
 

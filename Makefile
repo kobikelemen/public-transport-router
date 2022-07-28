@@ -4,7 +4,7 @@
 CC = gcc
 
 # compiler flags: 
-CFLAGS  = -g -Wall
+CFLAGS  = -g -Wall -O0
 
 # the build target executable:
 TARGET = main

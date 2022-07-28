@@ -12,7 +12,7 @@ float walk_time(int start_e, int end_e, int start_n, int end_n)
 
 
 
-void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_graph[], bus_stop * bs_array[], int num_bs, int testids[])
+void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_graph[], bus_stop * bs_array[], int num_bs)
 {
     // use array for Q first then improve to priority queue
 
