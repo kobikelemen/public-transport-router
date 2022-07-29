@@ -5,6 +5,7 @@
         "bus_network.h": "c",
         "string": "c",
         "*.tcc": "c",
-        "random": "c"
+        "random": "c",
+        "__locale": "c"
     }
 }

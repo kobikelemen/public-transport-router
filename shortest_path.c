@@ -5,8 +5,9 @@ float walk_time(int start_e, int end_e, int start_n, int end_n)
 {
     // assuming 1 easting/ northing is 1 metre
     float walkspeed = 1.4;
+    // float walkspeed = 0.001;
     float dist = sqrt(pow(start_e-end_e, 2) + pow(start_n-end_n, 2));
-    return dist / walkspeed;
+    return (dist / walkspeed)/60;
 }
 
 
@@ -21,14 +22,24 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     float time[num_bs];
     int processed[num_bs];
 
+    
+    // for (int e=0; e < num_bs; e++) {
+    //     neighbour * vneigh = bs_graph[e];
+    //     while (vneigh != NULL) {
+    //         printf(" %f", vneigh->time);
+    //         vneigh = vneigh->next;
+    //     }
+    // }
+
     float min_time_toend = inf;
     int last_bs;
-
+    
     for (int i=0; i < num_bs; i++) {
-        time[i] = walk_time(start_e, (bs_array[i])->easting, start_n, (bs_array[i])->northing);
+        time[i] = walk_time(start_e, (bs_array[i])->easting, start_n, (bs_array[i])->northing);    
         prev[i] = -1;
         processed[i] = 0;
     }
+
 
     int u; // id/ index of current node 
     float min = inf;
@@ -43,24 +54,50 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     int numvisited = 0;
     
     while (!processed[u]) {
+        
+
+        // if (strcmp(bs_array[u]->name, "NEW OXFORD STREET") == 0) {
+        //     printf("\n\n walk_time() TO NEW OXFORD STREET %f", time[u]);
+        // }
+
+        // if (strcmp(bs_array[u]->name, "SURREY QUAYS STATION") == 0) {
+        //     printf("\n\n\n\nFOUND FOUND FOUND\n\n\n");
+        //     printf("\n time[u] %f", time[u]);
+        //     printf("\n walk_time() %f", walk_time((bs_array[u])->easting, end_e, (bs_array[u])->northing, end_n));
+        // }
+
         numvisited ++;
         processed[u] = 1;
-        float dist_toend = time[u] + walk_time((bs_array[u])->easting, end_e, (bs_array[u])->northing, end_n);
-        if (dist_toend < min_time_toend) {
-            min_time_toend = dist_toend;
+        float time_toend = time[u] + walk_time((bs_array[u])->easting, end_e, (bs_array[u])->northing, end_n);
+        if (strcmp(bs_array[u]->name, "SURREY QUAYS STATION") == 0) {
+            printf("\ntime_toend SURREY QUAYS STATION: %f", time_toend);
+            printf("\n time[u] SURREY QUAYS STATION: %f", time[u]);
+        }
+
+        if (strcmp(bs_array[u]->name, "WATERLOO BRIDGE / SOUTH BANK") == 0) {
+            printf("\ntime_toend WATERLOO BRIDGE / SOUTH BANK: %f", time_toend);
+            printf("\n time[u] WATERLOO BRIDGE / SOUTH BANK: %f", time[u]);
+        }
+        if (time_toend < min_time_toend) {
+            // printf("\ntime_toend %f", time_toend);
+            // printf("\ntime_tohere %f", time[u]);
+            min_time_toend = time_toend;
             last_bs = u;
         }
         neighbour * vneigh = bs_graph[u]; // neighbours of u (current node)
         
         while (vneigh != NULL) {
+            // printf("\n %s ",  bs_array[u]->name);
             int v = vneigh->node->id;
-            // if (!processed[v]) {
             float alt = time[u] + vneigh->time;
+            // printf("  %s", vneigh->node->name);
             if (alt < time[v]) {
-                time[v] = vneigh->time;
+                // printf("\ntime: %f", time[v]);
+                // time[v] = vneigh->time;
+                time[v] = alt;
                 prev[v] = u;
+                
             }
-            // }
             vneigh = vneigh->next;
         }   
         // update Q -
@@ -73,7 +110,7 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
         }
     }
 
-    printf("last_bs: %s\n", bs_array[last_bs]->name);
+    printf("\n\nlast_bs: %s\n", bs_array[last_bs]->name);
 
 
     int x = last_bs;
@@ -82,16 +119,13 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     printf("\n\nbus path:   ");
     while (x != -1) {
         printf("%s, ", bs_array[x]->name);
-        printf(" %f ,", time[x]);
+        
         min_time += time[x];
         x = prev[x];
     }
-
-
     printf("\n");
-
-    printf("numvisited: %i\n", numvisited);
-    printf("min timetoend: %f\n", min_time);    
+    printf(" Journey time %f ,", min_time_toend);
+    
     
 
 }   

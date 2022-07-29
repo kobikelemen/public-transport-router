@@ -127,12 +127,9 @@ int main()
 
 
     int j=0;
-    printf("\nsequences  ");
-    for (int x=0; x < 2000; x++) {
-        printf("%s ", sequences[x]);
-    }
     
-    while (j < 58071) {
+    // while (j < 58072) {
+    while (j < 56){
 
         // char routei[3];
         // strcpy(routei, routes[j]);// = routes[j];
@@ -143,21 +140,15 @@ int main()
             num_busj ++;
         }
         
-        // char * arrival_mins[num_busj];
-
-        
-        printf("\nj %i\n", j);
+        // printf("\nj %i\n", j);
 
         char s[100] = "data_processing/bus_times/";
         strcat(s, routes[j]);
         strcat(s, "dt.txt");
-        printf("%s \n", s);
+        printf("\n%s ", s);
 
-        
+        // char * arrival_mins[num_busj];
         // read_file(num_busj, s, &arrival_mins, 0);
-
-
-        // 18951 num_busstops
 
 
         // build graph
@@ -173,13 +164,14 @@ int main()
                 bucket * buknext = busstop_hashtable[hnext];
 
                 // printf("LOOKING FOR: %s AND %s\n", busstop_names_routes[i], busstop_names_routes[i+1]);
-                printf("\n i %i ", i);
-                printf("   bussstop_names_routes[i] %s",busstop_names_routes[i]);
-                printf("   bussstop_names_routes[i+1] %s\n",busstop_names_routes[i+1]);
+                // printf("\n i %i ", i);
+                
+                printf("\n %s --> %s",busstop_names_routes[i], busstop_names_routes[i+1]);
+                // printf("   bussstop_names_routes[i+1] %s\n",);
                 int id = add_neighbour(bus_graph, &buk, &buknext, routes[i], rand()%2 +1, busstop_names_routes[i], busstop_names_routes[i+1]);            
-                printf("\nhere");
+                // printf("\nhere");
                 if (id == -2 && i != j+num_busj-1) {
-                    printf("\nhere2");
+                    // printf("\nhere2");
                     hnext = hash(busstop_names_routes[i+2], DICT_SIZE, MAX_WORD);
                     buknext = busstop_hashtable[hnext];
                     id = add_neighbour(bus_graph, &buk, &buknext, routes[i], rand()%2 +1, busstop_names_routes[i], busstop_names_routes[i+2]);
@@ -209,6 +201,16 @@ int main()
     // for (int i=0; i < num1stops; i ++ ) {
     //     printf("busstop_array[i] %s\n", busstop_array[i]->name);
     // }
+    int surrey_quays_id = 9471;
+
+    neighbour * sq = bus_graph[surrey_quays_id];
+    printf("\n\n\n\n surrey quays neighbours:   ");
+    while (sq != NULL) {
+        printf(" %s,", sq->node->name);
+        sq = sq->next;
+    }
+    printf("\n\n");
+
     dijkstras(530000, 181430, 535460, 179490, bus_graph, busstop_array, num_busstops);
 
 }

@@ -134,12 +134,32 @@ int add_neighbour(neighbour *bgraph[], bucket ** b, bucket ** bnext, char * busn
             return -1;
         }
     }
-    bgraph[(*b)->b->id] = malloc(sizeof(neighbour));
-    strcpy(bgraph[(*b)->b->id], busnum);
-    (bgraph[(*b)->b->id])->time = dt;
-    (bgraph[(*b)->b->id])->next = NULL;
-    (bgraph[(*b)->b->id])->node = (*bnext)->b;
-    return (*b)->b->id;
+    // if (strcmp((*b)->b->name, "SURREY QUAYS STATION") == 0) {
+    //     printf("\n\n\n SURREY QUAYS STATION ID: %i \n\n\n", (*b)->b->id);
+    // }
+    
+    
+    if (bgraph[(*b)->b->id] == NULL) {
+        bgraph[(*b)->b->id] = malloc(sizeof(neighbour));
+        strcpy(bgraph[(*b)->b->id]->bus_number, busnum);
+        (bgraph[(*b)->b->id])->time = dt;
+        (bgraph[(*b)->b->id])->next = NULL;
+        (bgraph[(*b)->b->id])->node = (*bnext)->b;
+        return (*b)->b->id;
+    } else {
+        neighbour * n = bgraph[(*b)->b->id];
+        while(n->next != NULL) {
+            n = n->next;
+        }
+        n->next = malloc(sizeof(neighbour));
+        strcpy(n->next->bus_number, busnum);
+        n->next->time = dt;
+        n->next->next = NULL;
+        n->next->node = (*bnext)->b;
+        return (*b)->b->id;
+    } 
+     
+    
 }
 
 

@@ -36,7 +36,7 @@ typedef struct bus_stop
 
 
 // adjacency linked list with weight, each element contains bus_stop struct
-typedef struct {
+typedef struct neighbour{
     bus_stop *node;
     double time; // ie weight
     char bus_number[5];
