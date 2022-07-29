@@ -35,7 +35,12 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     int last_bs;
     
     for (int i=0; i < num_bs; i++) {
+        
         time[i] = walk_time(start_e, (bs_array[i])->easting, start_n, (bs_array[i])->northing);    
+        if (strcmp(bs_array[i]->name, "BUSH ROAD") == 0) {
+            // printf("\ntime_toend BUSH ROAD: %f", time_toend);
+            printf("\n time[u] BUSH ROAD: %f", time[i]);
+        }
         prev[i] = -1;
         processed[i] = 0;
     }
@@ -60,24 +65,19 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
         //     printf("\n\n walk_time() TO NEW OXFORD STREET %f", time[u]);
         // }
 
-        // if (strcmp(bs_array[u]->name, "SURREY QUAYS STATION") == 0) {
-        //     printf("\n\n\n\nFOUND FOUND FOUND\n\n\n");
-        //     printf("\n time[u] %f", time[u]);
-        //     printf("\n walk_time() %f", walk_time((bs_array[u])->easting, end_e, (bs_array[u])->northing, end_n));
-        // }
 
         numvisited ++;
         processed[u] = 1;
         float time_toend = time[u] + walk_time((bs_array[u])->easting, end_e, (bs_array[u])->northing, end_n);
-        if (strcmp(bs_array[u]->name, "SURREY QUAYS STATION") == 0) {
-            printf("\ntime_toend SURREY QUAYS STATION: %f", time_toend);
-            printf("\n time[u] SURREY QUAYS STATION: %f", time[u]);
-        }
+        // if (strcmp(bs_array[u]->name, "SURREY QUAYS STATION") == 0) {
+        //     printf("\ntime_toend SURREY QUAYS STATION: %f", time_toend);
+        //     printf("\n time[u] SURREY QUAYS STATION: %f", time[u]);
+        // }
 
-        if (strcmp(bs_array[u]->name, "WATERLOO BRIDGE / SOUTH BANK") == 0) {
-            printf("\ntime_toend WATERLOO BRIDGE / SOUTH BANK: %f", time_toend);
-            printf("\n time[u] WATERLOO BRIDGE / SOUTH BANK: %f", time[u]);
-        }
+        // if (strcmp(bs_array[u]->name, "BUSH ROAD") == 0) {
+        //     printf("\ntime_toend BUSH ROAD: %f", time_toend);
+        //     printf("\n time[u] BUSH ROAD: %f", time[u]);
+        // }
         if (time_toend < min_time_toend) {
             // printf("\ntime_toend %f", time_toend);
             // printf("\ntime_tohere %f", time[u]);

@@ -42,8 +42,11 @@ int main()
     // int r1 = rand();
     // int r2 = rand();
 
-    srand( time(NULL) );
-    printf("\nrand: %i ", rand()%2+1);
+    // srand( time(NULL) );
+    for (int i=0; i < 20; i++) {
+      printf("\nrand: %i ", rand()%2+1);  
+    }
+    
     printf("\nrand: %i ", rand()%2+1);
 
 

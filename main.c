@@ -71,6 +71,10 @@ int main()
         bs->easting = atoi(location_e[i]);
         bs->name = busstop_names[i];
         bs->id = i;
+        if (strcmp(bs->name, "BUSH ROAD") == 0) {
+            printf("\n BUSH ROAD FOUND");
+            
+        }
 
         busstop_array[i] = bs;
         
@@ -78,7 +82,7 @@ int main()
         for (int n=0; n< 10; n++) {
             (bs->bus_list)[n] = 0; // init array of buses at busstop to 0s
         }
-        //
+        
 
         // init bucket which holds bus stop
         bucket * buck = malloc(sizeof(bucket));
@@ -129,10 +133,8 @@ int main()
     int j=0;
     
     // while (j < 58072) {
-    while (j < 56){
+    while (j < 5000){
 
-        // char routei[3];
-        // strcpy(routei, routes[j]);// = routes[j];
         printf("\nroutei %s", routes[j]);
         
         int num_busj = 0;
@@ -163,18 +165,13 @@ int main()
                 bucket * buk = busstop_hashtable[h];
                 bucket * buknext = busstop_hashtable[hnext];
 
-                // printf("LOOKING FOR: %s AND %s\n", busstop_names_routes[i], busstop_names_routes[i+1]);
-                // printf("\n i %i ", i);
                 
-                printf("\n %s --> %s",busstop_names_routes[i], busstop_names_routes[i+1]);
-                // printf("   bussstop_names_routes[i+1] %s\n",);
-                int id = add_neighbour(bus_graph, &buk, &buknext, routes[i], rand()%2 +1, busstop_names_routes[i], busstop_names_routes[i+1]);            
-                // printf("\nhere");
+                // printf("\n %s --> %s",busstop_names_routes[i], busstop_names_routes[i+1]);
+                int id = add_neighbour(bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+1]);            
                 if (id == -2 && i != j+num_busj-1) {
-                    // printf("\nhere2");
                     hnext = hash(busstop_names_routes[i+2], DICT_SIZE, MAX_WORD);
                     buknext = busstop_hashtable[hnext];
-                    id = add_neighbour(bus_graph, &buk, &buknext, routes[i], rand()%2 +1, busstop_names_routes[i], busstop_names_routes[i+2]);
+                    id = add_neighbour(bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+2]);
                     i++;
                 }
                 
@@ -191,25 +188,29 @@ int main()
 
     printf("END\n");
 
-    
-    // for (int i=0; i < num_busstops; i ++ ) {
-    //     printf("name: %s\n",(busstop_array[i])->name);
+    /*
+
+    PROBLEMS:
+     1. SOME BUS STOP NAMES ARE NOT UNIQUE I.E. THERE'S BUS STOPS IN DIFFERENT LOCATIONSN W/ SAME NAME
+        SO E.G. 'BUSH ROAD' EXISTS BOTH IN NORTH LONDON AND NEXT TO CANADA WATER SO DIJKSTRAS
+        THINKS THERE'S A LINK BETWEEN THE TWO AND TAKES A BUS TO NORTH LONDON THEN TELEPORTS NEXT TO CANADA WATER...
+        (WHEN J < 5000)
+    2. IN NAMES EACH BUS STOP APPEARS AT LEAST TWICE, 1 FOR EACH DIRECTION. BUT IN MY CODE IT'S IMPLEMENTED SO
+        BOTH DIRECTIONS ARE REPRESENTED AT 1 BUS STOP (NOT TWO FOR EACH SIDE OF THE ROAD) SO NEED TO DELETE THE SECOND ONE
+            !! BE CAREFUL NOT TO DELETE BUS STOP WITH SAME NAME BUT DIFFERENT LOCATION THO .... NEED TO CHECK IF THE NAMES
+            CORRESPOND TO SAME EASTING & NORTHING !!
+    */
+
+
+    // int surrey_quays_id = 9471;
+
+    // neighbour * sq = bus_graph[surrey_quays_id];
+    // printf("\n\n\n\n surrey quays neighbours:   ");
+    // while (sq != NULL) {
+    //     printf(" %s,", sq->node->name);
+    //     sq = sq->next;
     // }
-    // printf("neighbour->node->name %s\n",bus_graph[9467]->node->name);
-
-
-    // for (int i=0; i < num1stops; i ++ ) {
-    //     printf("busstop_array[i] %s\n", busstop_array[i]->name);
-    // }
-    int surrey_quays_id = 9471;
-
-    neighbour * sq = bus_graph[surrey_quays_id];
-    printf("\n\n\n\n surrey quays neighbours:   ");
-    while (sq != NULL) {
-        printf(" %s,", sq->node->name);
-        sq = sq->next;
-    }
-    printf("\n\n");
+    // printf("\n\n");
 
     dijkstras(530000, 181430, 535460, 179490, bus_graph, busstop_array, num_busstops);
 
