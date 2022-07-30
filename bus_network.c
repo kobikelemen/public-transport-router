@@ -128,20 +128,33 @@ int add_neighbour(
     //     printf("\n\n LOOKING FOR COORDS: \n\n");
     // }
 
-    while ( strcmp((*bnext)->b->name, bsnamenext) != 0 && seq_loce_next != (*bnext)->b->easting && seq_locn_next != (*bnext)->b->northing) {
+    while ( (strcmp((*bnext)->b->name, bsnamenext) != 0) || (seq_loce_next != (*bnext)->b->easting) || (seq_locn_next != (*bnext)->b->northing)) {
         // printf("\n bsname: %s, name: %s, seq_loce_next: %i, easting: %i, seq_locn_next: %i, northing: %i ", bsname, (*bnext)->b->name, seq_loce_next, (*bnext)->b->easting, seq_locn_next, (*bnext)->b->northing);
         *bnext = (*bnext)->next;
         if (*bnext == NULL) {
-            printf("BNEXT NOT FOUND -- %s!\n", bsnamenext);
+            // printf("BNEXT NOT FOUND -- %s!\n", bsnamenext);
             return -2;
         }
     }
 
-    while ( strcmp((*b)->b->name, bsname) != 0 && seq_loce != (*b)->b->easting && seq_locn != (*b)->b->northing) {
+
+    // printf("\n");
+    if (strcmp(bsname, "WATERLOO ROAD") == 0) {
+            printf("\nBUCKET: ");
+            printf(" %s current e: %i n: %i     target e: %i n: %i\n", (*b)->b->name, (*b)->b->easting, (*b)->b->northing, seq_loce, seq_locn);
+        }
+    while ( (strcmp((*b)->b->name, bsname) != 0) || (seq_loce != (*b)->b->easting) || (seq_locn != (*b)->b->northing)) {
+        
+        
         *b = (*b)->next;
         if (*b == NULL) {
-            printf("B NOT FOUND -- %s!\n", bsname);
+            // printf("B NOT FOUND -- %s!\n", bsname);
             return -1;
+        }
+        if (strcmp(bsname, "WATERLOO ROAD") == 0) {
+            printf("\nINSIDE");
+            printf("\nBUCKET: ");
+            printf(" %s e: %i n: %i", (*b)->b->name, (*b)->b->easting, (*b)->b->northing);
         }
     }
     
@@ -163,6 +176,10 @@ int add_neighbour(
         n->next->time = dt;
         n->next->next = NULL;
         n->next->node = (*bnext)->b;
+        if (strcmp(bsname, "WATERLOO ROAD") == 0 || strcmp(bsnamenext, "WATERLOO ROAD") == 0) {
+            printf("\n\nFOUND %s e: %i  n: %i --> %s e: %i n: %i", bsname,(*b)->b->easting, (*b)->b->northing, bsnamenext, n->next->node->easting, n->next->node->northing );
+            printf("\n BUT TARGET e: %i n: %i next e: %i next n: %i", seq_loce, seq_locn, seq_loce_next, seq_locn_next);
+        }
         return (*b)->b->id;
     } 
      

@@ -21,6 +21,7 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     int prev[num_bs];
     float time[num_bs];
     int processed[num_bs];
+    int busroute[num_bs];
 
     
     // for (int e=0; e < num_bs; e++) {
@@ -33,6 +34,7 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
 
     float min_time_toend = inf;
     int last_bs;
+    
     
     for (int i=0; i < num_bs; i++) {
         
@@ -96,6 +98,7 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
                 // time[v] = vneigh->time;
                 time[v] = alt;
                 prev[v] = u;
+                busroute[v] = atoi(vneigh->bus_number);
                 
             }
             vneigh = vneigh->next;
@@ -118,7 +121,7 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
 
     printf("\n\nbus path:   ");
     while (x != -1) {
-        printf("%s, ", bs_array[x]->name);
+        printf("  %i  %s, ", busroute[x],bs_array[x]->name);
         
         min_time += time[x];
         x = prev[x];

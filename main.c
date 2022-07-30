@@ -130,10 +130,10 @@ int main()
 
     int j=0;
     
-    // while (j < 58072) {
-    while (j < 56){
+    while (j < 58072) {
+    // while (j < 56){
 
-        printf("\nroutei %s", routes[j]);
+        // printf("\nroutei %s", routes[j]);
         
         int num_busj = 0;
         while (atoi(sequences[j+num_busj+1]) > atoi(sequences[j+num_busj])) {
@@ -145,7 +145,7 @@ int main()
         char s[100] = "data_processing/bus_times/";
         strcat(s, routes[j]);
         strcat(s, "dt.txt");
-        printf("\n%s ", s);
+        // printf("\n%s ", s);
 
         // char * arrival_mins[num_busj];
         // read_file(num_busj, s, &arrival_mins, 0);
@@ -155,14 +155,16 @@ int main()
 
         srand( time(NULL) );
         
-
-        for (int i=j; i < j+num_busj; i ++ ) { // do 1 bus only first
+        for (int i=j; i < j+num_busj; i ++ ) {
 
                 int h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
                 int hnext = hash(busstop_names_routes[i+1], DICT_SIZE, MAX_WORD);
                 bucket * buk = busstop_hashtable[h];
                 bucket * buknext = busstop_hashtable[hnext];
 
+                if (strcmp(busstop_names_routes[i+1], "WATERLOO ROAD") == 0 || strcmp(busstop_names_routes[i], "WATERLOO ROAD") == 0) {
+                    printf("\n\n\n\n %s e: %s  n: %s --> %s e: %s n: %s\n\n",busstop_names_routes[i], seq_location_e[i], seq_location_n[i],busstop_names_routes[i+1], seq_location_e[i+1], seq_location_n[i+1]);
+                }
                 
                 // printf("\n %s --> %s",busstop_names_routes[i], busstop_names_routes[i+1]);
                 int id = add_neighbour(
@@ -174,7 +176,7 @@ int main()
                     buknext = busstop_hashtable[hnext];
                     id = add_neighbour(
                         bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+2],
-                        atoi(seq_location_n[i]), atoi(seq_location_e[i]), atoi(seq_location_n[i+1]), atoi(seq_location_e[i+2])
+                        atoi(seq_location_n[i]), atoi(seq_location_e[i]), atoi(seq_location_n[i+2]), atoi(seq_location_e[i+2])
                         );
                     i++;
                 }
