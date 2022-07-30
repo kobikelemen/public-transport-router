@@ -39,10 +39,10 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     for (int i=0; i < num_bs; i++) {
         
         time[i] = walk_time(start_e, (bs_array[i])->easting, start_n, (bs_array[i])->northing);    
-        if (strcmp(bs_array[i]->name, "BUSH ROAD") == 0) {
-            // printf("\ntime_toend BUSH ROAD: %f", time_toend);
-            printf("\n time[u] BUSH ROAD: %f", time[i]);
-        }
+        // if (strcmp(bs_array[i]->name, "BUSH ROAD") == 0) {
+        //     // printf("\ntime_toend BUSH ROAD: %f", time_toend);
+        //     printf("\n time[u] BUSH ROAD: %f", time[i]);
+        // }
         prev[i] = -1;
         processed[i] = 0;
     }

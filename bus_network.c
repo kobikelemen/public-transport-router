@@ -139,10 +139,10 @@ int add_neighbour(
 
 
     // printf("\n");
-    if (strcmp(bsname, "WATERLOO ROAD") == 0) {
-            printf("\nBUCKET: ");
-            printf(" %s current e: %i n: %i     target e: %i n: %i\n", (*b)->b->name, (*b)->b->easting, (*b)->b->northing, seq_loce, seq_locn);
-        }
+    // if (strcmp(bsname, "WATERLOO ROAD") == 0) {
+    //         printf("\nBUCKET: ");
+    //         printf(" %s current e: %i n: %i     target e: %i n: %i\n", (*b)->b->name, (*b)->b->easting, (*b)->b->northing, seq_loce, seq_locn);
+    //     }
     while ( (strcmp((*b)->b->name, bsname) != 0) || (seq_loce != (*b)->b->easting) || (seq_locn != (*b)->b->northing)) {
         
         
@@ -151,11 +151,11 @@ int add_neighbour(
             // printf("B NOT FOUND -- %s!\n", bsname);
             return -1;
         }
-        if (strcmp(bsname, "WATERLOO ROAD") == 0) {
-            printf("\nINSIDE");
-            printf("\nBUCKET: ");
-            printf(" %s e: %i n: %i", (*b)->b->name, (*b)->b->easting, (*b)->b->northing);
-        }
+        // if (strcmp(bsname, "WATERLOO ROAD") == 0) {
+        //     printf("\nINSIDE");
+        //     printf("\nBUCKET: ");
+        //     printf(" %s e: %i n: %i", (*b)->b->name, (*b)->b->easting, (*b)->b->northing);
+        // }
     }
     
     

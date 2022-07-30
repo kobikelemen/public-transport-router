@@ -162,7 +162,7 @@ int main()
                 bucket * buk = busstop_hashtable[h];
                 bucket * buknext = busstop_hashtable[hnext];
 
-                if (strcmp(busstop_names_routes[i+1], "WATERLOO ROAD") == 0 || strcmp(busstop_names_routes[i], "WATERLOO ROAD") == 0) {
+                if (strcmp(busstop_names_routes[i+1], "TOWER HILL / TOWER GATEWAY STATION") == 0 || strcmp(busstop_names_routes[i], "WATERLOO ROAD") == 0) {
                     printf("\n\n\n\n %s e: %s  n: %s --> %s e: %s n: %s\n\n",busstop_names_routes[i], seq_location_e[i], seq_location_n[i],busstop_names_routes[i+1], seq_location_e[i+1], seq_location_n[i+1]);
                 }
                 
