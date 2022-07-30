@@ -43,7 +43,8 @@ int main()
     char *routes[len_routes];
     char *sequences[len_routes];
     char *busstop_names_routes[len_routes];
-    
+    char *seq_location_n[len_routes];
+    char *seq_location_e[len_routes];
     
     read_file(num_busstops, "bus_data/names.txt", &busstop_names, 1);
     read_file(num_busstops, "bus_data/location_n.txt", &location_n, 0);
@@ -51,6 +52,8 @@ int main()
     read_file(len_routes, "bus_sequences/route.txt", &routes, 0);
     read_file(len_routes, "bus_sequences/sequence.txt", &sequences, 0);
     read_file(len_routes, "bus_sequences/stop_name.txt", &busstop_names_routes, 1);
+    read_file(len_routes, "bus_sequences/seq_location_n.txt", &seq_location_n, 0);
+    read_file(len_routes, "bus_sequences/seq_location_e.txt", &seq_location_e, 0);
 
     bucket * busstop_hashtable[DICT_SIZE];
 
@@ -65,16 +68,11 @@ int main()
 
     int h = 0; 
     for (int i=0; i < num_busstops; i++) {  
-        // init bus stop
         bus_stop *bs = malloc(sizeof(bus_stop));
         bs->northing = atoi(location_n[i]);
         bs->easting = atoi(location_e[i]);
         bs->name = busstop_names[i];
         bs->id = i;
-        if (strcmp(bs->name, "BUSH ROAD") == 0) {
-            printf("\n BUSH ROAD FOUND");
-            
-        }
 
         busstop_array[i] = bs;
         
@@ -133,7 +131,7 @@ int main()
     int j=0;
     
     // while (j < 58072) {
-    while (j < 5000){
+    while (j < 56){
 
         printf("\nroutei %s", routes[j]);
         
@@ -167,11 +165,17 @@ int main()
 
                 
                 // printf("\n %s --> %s",busstop_names_routes[i], busstop_names_routes[i+1]);
-                int id = add_neighbour(bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+1]);            
+                int id = add_neighbour(
+                    bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+1],
+                     atoi(seq_location_n[i]), atoi(seq_location_e[i]), atoi(seq_location_n[i+1]), atoi(seq_location_e[i+1])
+                     );            
                 if (id == -2 && i != j+num_busj-1) {
                     hnext = hash(busstop_names_routes[i+2], DICT_SIZE, MAX_WORD);
                     buknext = busstop_hashtable[hnext];
-                    id = add_neighbour(bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+2]);
+                    id = add_neighbour(
+                        bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+2],
+                        atoi(seq_location_n[i]), atoi(seq_location_e[i]), atoi(seq_location_n[i+1]), atoi(seq_location_e[i+2])
+                        );
                     i++;
                 }
                 
@@ -199,18 +203,25 @@ int main()
         BOTH DIRECTIONS ARE REPRESENTED AT 1 BUS STOP (NOT TWO FOR EACH SIDE OF THE ROAD) SO NEED TO DELETE THE SECOND ONE
             !! BE CAREFUL NOT TO DELETE BUS STOP WITH SAME NAME BUT DIFFERENT LOCATION THO .... NEED TO CHECK IF THE NAMES
             CORRESPOND TO SAME EASTING & NORTHING !!
+    
+    ... CHANGED add_neighbour() AND DOESN'T WORK ANYMORE :()
+    
     */
 
 
-    // int surrey_quays_id = 9471;
 
-    // neighbour * sq = bus_graph[surrey_quays_id];
-    // printf("\n\n\n\n surrey quays neighbours:   ");
-    // while (sq != NULL) {
-    //     printf(" %s,", sq->node->name);
-    //     sq = sq->next;
+    // for (int i=0; i < len_routes; i++) {
+    //     neighbour * sq = bus_graph[i];
+    //     if (sq != NULL) {
+    //         printf("\n");
+    //     }
+    //     while (sq != NULL) {
+    //         printf(" %s,", sq->node->name);
+    //         sq = sq->next;
+    //     }
     // }
-    // printf("\n\n");
+
+
 
     dijkstras(530000, 181430, 535460, 179490, bus_graph, busstop_array, num_busstops);
 

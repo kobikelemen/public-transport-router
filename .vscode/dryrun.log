@@ -1,5 +1,3 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/kobikelemen/Documents/computing/coding/c++/public-transport-router'
-make: Nothing to be done for `all'.
-make: Leaving directory `/Users/kobikelemen/Documents/computing/coding/c++/public-transport-router'
- 
+make --dry-run --always-make --keep-going --print-directory
+xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
+

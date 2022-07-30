@@ -112,31 +112,38 @@ int find_in_bucket(bucket ** buk, char * busstop_name, int add_busroute)
 }
 
 
-int add_neighbour(neighbour *bgraph[], bucket ** b, bucket ** bnext, char * busnum, int dt, char * bsname, char * bsnamenext)
+int add_neighbour(
+    neighbour *bgraph[], bucket ** b, bucket ** bnext, char * busnum, 
+    int dt, char * bsname, char * bsnamenext, int seq_locn, int seq_loce, 
+    int seq_locn_next, int seq_loce_next
+    )
 {
     if ((*bnext) == NULL) {
         return -2;
     } else if ((*b) == NULL) {
         return -1;
     }
-    while ( strcmp((*bnext)->b->name, bsnamenext) != 0) {
+    
+    // if (strcmp(bsname, "CANADA WATER BUS STATION") == 0) {
+    //     printf("\n\n LOOKING FOR COORDS: \n\n");
+    // }
+
+    while ( strcmp((*bnext)->b->name, bsnamenext) != 0 && seq_loce_next != (*bnext)->b->easting && seq_locn_next != (*bnext)->b->northing) {
+        // printf("\n bsname: %s, name: %s, seq_loce_next: %i, easting: %i, seq_locn_next: %i, northing: %i ", bsname, (*bnext)->b->name, seq_loce_next, (*bnext)->b->easting, seq_locn_next, (*bnext)->b->northing);
         *bnext = (*bnext)->next;
         if (*bnext == NULL) {
-            printf("BNEXT NOT FOUND!\n");
+            printf("BNEXT NOT FOUND -- %s!\n", bsnamenext);
             return -2;
         }
     }
 
-    while ( strcmp((*b)->b->name, bsname) != 0) {
+    while ( strcmp((*b)->b->name, bsname) != 0 && seq_loce != (*b)->b->easting && seq_locn != (*b)->b->northing) {
         *b = (*b)->next;
         if (*b == NULL) {
-            printf("B NOT FOUND!\n");
+            printf("B NOT FOUND -- %s!\n", bsname);
             return -1;
         }
     }
-    // if (strcmp((*b)->b->name, "SURREY QUAYS STATION") == 0) {
-    //     printf("\n\n\n SURREY QUAYS STATION ID: %i \n\n\n", (*b)->b->id);
-    // }
     
     
     if (bgraph[(*b)->b->id] == NULL) {

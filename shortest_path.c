@@ -61,8 +61,8 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
     while (!processed[u]) {
         
 
-        // if (strcmp(bs_array[u]->name, "NEW OXFORD STREET") == 0) {
-        //     printf("\n\n walk_time() TO NEW OXFORD STREET %f", time[u]);
+        // if (strcmp(bs_array[u]->name, "MUSEUM STREET") == 0) {
+        //     printf("\n\n MUSEUM STREET FOUND\n\n");
         // }
 
 
@@ -124,7 +124,7 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
         x = prev[x];
     }
     printf("\n");
-    printf(" Journey time %f ,", min_time_toend);
+    printf(" Journey time %f ,", min_time_toend); // 188
     
     
 
