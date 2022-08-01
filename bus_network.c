@@ -129,7 +129,6 @@ int add_neighbour(
     // }
 
     while ( (strcmp((*bnext)->b->name, bsnamenext) != 0) || (seq_loce_next != (*bnext)->b->easting) || (seq_locn_next != (*bnext)->b->northing)) {
-        // printf("\n bsname: %s, name: %s, seq_loce_next: %i, easting: %i, seq_locn_next: %i, northing: %i ", bsname, (*bnext)->b->name, seq_loce_next, (*bnext)->b->easting, seq_locn_next, (*bnext)->b->northing);
         *bnext = (*bnext)->next;
         if (*bnext == NULL) {
             // printf("BNEXT NOT FOUND -- %s!\n", bsnamenext);

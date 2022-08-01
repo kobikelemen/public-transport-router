@@ -16,3 +16,6 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
+
+clean:
+	rm -f $(OBJ) *~

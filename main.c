@@ -28,8 +28,25 @@ walking distance to station
 */
 
 
-int main()
+int main(int argc, char **argv)
 {
+    int starte;
+    int startn;
+    int ende;
+    int endn;
+    if (argc > 1) {
+        starte = atoi(argv[1]);
+        startn = atoi(argv[2]);
+        ende = atoi(argv[3]);
+        endn = atoi(argv[4]);
+    } else {
+        starte = 527278;
+        startn = 176916;
+        ende = 531917;
+        endn = 172263;
+    }
+    
+    
 
     int MAX_WORD = 256;
     int DICT_SIZE = 20000;
@@ -130,15 +147,17 @@ int main()
 
     int j=0;
     
-    while (j < 58072) {
-    // while (j < 56){
+    // while (j < 58072) {
+    while (j < 41228){
 
         // printf("\nroutei %s", routes[j]);
         
         int num_busj = 0;
         while (atoi(sequences[j+num_busj+1]) > atoi(sequences[j+num_busj])) {
             num_busj ++;
+            
         }
+        // printf("\nj+num_busj+1: %i ", j+num_busj+1);
         
         // printf("\nj %i\n", j);
 
@@ -162,16 +181,19 @@ int main()
                 bucket * buk = busstop_hashtable[h];
                 bucket * buknext = busstop_hashtable[hnext];
 
-                if (strcmp(busstop_names_routes[i+1], "TOWER HILL / TOWER GATEWAY STATION") == 0 || strcmp(busstop_names_routes[i], "WATERLOO ROAD") == 0) {
-                    printf("\n\n\n\n %s e: %s  n: %s --> %s e: %s n: %s\n\n",busstop_names_routes[i], seq_location_e[i], seq_location_n[i],busstop_names_routes[i+1], seq_location_e[i+1], seq_location_n[i+1]);
-                }
+                // if (strcmp(busstop_names_routes[i+1], "WATERLOO STATION / WATERLOO ROAD") == 0 || strcmp(busstop_names_routes[i], "WATERLOO STATION / WATERLOO ROAD") == 0) {
+                //     printf("\n\n\n\n %s e: %s  n: %s --> %s e: %s n: %s\n\n",busstop_names_routes[i], seq_location_e[i], seq_location_n[i],busstop_names_routes[i+1], seq_location_e[i+1], seq_location_n[i+1]);
+                // }
                 
                 // printf("\n %s --> %s",busstop_names_routes[i], busstop_names_routes[i+1]);
                 int id = add_neighbour(
                     bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+1],
                      atoi(seq_location_n[i]), atoi(seq_location_e[i]), atoi(seq_location_n[i+1]), atoi(seq_location_e[i+1])
-                     );            
-                if (id == -2 && i != j+num_busj-1) {
+                     );    
+                if (i >  58000  && i < 59000) {
+                printf("\ni: %i j+num_busj: %i\n", i, j+num_busj);
+                }
+                if (id == -2 && i != j+num_busj) {
                     hnext = hash(busstop_names_routes[i+2], DICT_SIZE, MAX_WORD);
                     buknext = busstop_hashtable[hnext];
                     id = add_neighbour(
@@ -194,37 +216,34 @@ int main()
 
     printf("END\n");
 
+
+
+
+
+
+
+
+
+
     /*
 
-    PROBLEMS:
-     1. SOME BUS STOP NAMES ARE NOT UNIQUE I.E. THERE'S BUS STOPS IN DIFFERENT LOCATIONSN W/ SAME NAME
-        SO E.G. 'BUSH ROAD' EXISTS BOTH IN NORTH LONDON AND NEXT TO CANADA WATER SO DIJKSTRAS
-        THINKS THERE'S A LINK BETWEEN THE TWO AND TAKES A BUS TO NORTH LONDON THEN TELEPORTS NEXT TO CANADA WATER...
-        (WHEN J < 5000)
-    2. IN NAMES EACH BUS STOP APPEARS AT LEAST TWICE, 1 FOR EACH DIRECTION. BUT IN MY CODE IT'S IMPLEMENTED SO
-        BOTH DIRECTIONS ARE REPRESENTED AT 1 BUS STOP (NOT TWO FOR EACH SIDE OF THE ROAD) SO NEED TO DELETE THE SECOND ONE
-            !! BE CAREFUL NOT TO DELETE BUS STOP WITH SAME NAME BUT DIFFERENT LOCATION THO .... NEED TO CHECK IF THE NAMES
-            CORRESPOND TO SAME EASTING & NORTHING !!
-    
-    ... CHANGED add_neighbour() AND DOESN'T WORK ANYMORE :()
+    ---- TODO:
+     1. FIX LINE 174 IN MAIN --> NOT SKIPPING add_neighbour() WHEN i IS LAST INDEX E.G. DIJKSTRAS THINKS THERES 
+        PATH BETWEEN WATERLOO STATION / WATERLOO ROAD AND NORWOOD ROAD / ROBSON ROAD SINCE 
+        LINE 58043 AND 58044 IN stop_name.txt
     
     */
 
 
 
-    // for (int i=0; i < len_routes; i++) {
-    //     neighbour * sq = bus_graph[i];
-    //     if (sq != NULL) {
-    //         printf("\n");
-    //     }
-    //     while (sq != NULL) {
-    //         printf(" %s,", sq->node->name);
-    //         sq = sq->next;
-    //     }
-    // }
 
 
 
-    dijkstras(530000, 181430, 535460, 179490, bus_graph, busstop_array, num_busstops);
 
+
+    //dijkstras(530000, 181430, 535460, 179490, bus_graph, busstop_array, num_busstops);
+    // dijkstras(527278, 176916,531917, 172263, bus_graph, busstop_array, num_busstops);
+    dijkstras(starte, startn, ende, endn, bus_graph, busstop_array, num_busstops);
+    printf("\n inputs %i %i %i %i", starte, startn, ende, endn);
+    
 }

@@ -6,6 +6,7 @@
         "string": "c",
         "*.tcc": "c",
         "random": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "typeinfo": "c"
     }
 }
