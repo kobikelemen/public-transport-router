@@ -16,7 +16,6 @@ ende = '530932'
 endn = '175200'
 
 
-# subprocess.call(["./main", "1", "2", "3", "9"])
 subprocess.call(["./main", starte, startn, ende, endn])
 
 f = open('frontend/route.txt', 'r')
