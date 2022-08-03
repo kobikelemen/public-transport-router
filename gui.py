@@ -90,10 +90,13 @@ while True:
             long = res[0]['long']
             response = requests.get('http://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc?method=LatLongToBNG&lat='+str(lat)+'&lon='+str(long))
             data = json.loads(response.text)
-            northing = data['NORTHING']
-            easting = data['EASTING']
+            northing = int(data['NORTHING'])
+            easting = int(data['EASTING'])
             ende, endn = '526455', '179252' # imperial
-            subprocess.call(["./main", str(northing), str(easting), ende, endn])
+            # northing = 527278
+            # easting = 176916
+
+            subprocess.call(["./main", str(easting), str(northing), ende, endn])
             route = read_route()
             print('route ', route)
             print('\n\nstart', easting, northing,'end', ende, endn)
