@@ -117,22 +117,7 @@ void dijkstras(int start_e, int start_n, int end_e, int end_n, neighbour * bs_gr
 
     // printf("\n\nlast_bs: %s\n", bs_array[last_bs]->name);
 
-    save_path(&busroute,bs_array, prev, time, last_bs, min_time_toend);
-
-
-    // int x = last_bs;
-    // float min_time = 0;
-
-    // printf("\n\nbus path:   ");
-    // while (x != -1) {
-    //     printf("  %i  %s, ", busroute[x],bs_array[x]->name);
-        
-    //     min_time += time[x];
-    //     x = prev[x];
-    // }
-    // printf("\n");
-    // printf(" Journey time %f ,", min_time_toend);
-    
+    save_path(&busroute,bs_array, prev, time, last_bs, min_time_toend);    
 
 }   
 

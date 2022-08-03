@@ -6,6 +6,7 @@ import inspect
 import requests
 import json
 import subprocess
+import folium
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -28,6 +29,7 @@ keywords = keyword.kwlist
 font = ('Helvetica', 16)
 
 layout = [
+    [folium.Map(title='Golden Gate Bridge', location=(37.81959, -122.4785504))],
     [sg.Text('Input Python keyword:', font=font)],
     [sg.Input('', size=(20, 1), font=font, enable_events=True, key='-IN-')],
 
@@ -93,8 +95,7 @@ while True:
             northing = int(data['NORTHING'])
             easting = int(data['EASTING'])
             ende, endn = '526455', '179252' # imperial
-            # northing = 527278
-            # easting = 176916
+
 
             subprocess.call(["./main", str(easting), str(northing), ende, endn])
             route = read_route()
