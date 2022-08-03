@@ -20,13 +20,17 @@ from req.autocomplete import autocomplete
 def read_route():
     f = open('frontend/route.txt', 'r')
     route = f.readlines()
-    # for i in route:
-    #     route[i] = route[i].strip()
+    buses, stops, coords = [], [], []
+    for i, r in enumerate(route):
+        r = r.strip()
+        x = r.split(':')
+        route[i] = x
     return route
 
 class AutocompleteEntry(Entry):
-    def __init__(self, autocompleteList, *args, **kwargs):
-
+    def __init__(self, map, autocompleteList, *args, **kwargs):
+        self.map = map
+        self.bs_coords = []
         # Listbox length
         if 'listboxLength' in kwargs:
             self.listboxLength = kwargs['listboxLength']
@@ -102,7 +106,19 @@ class AutocompleteEntry(Entry):
                 ende, endn = '526455', '179252' # imperial
                 subprocess.call(["./main", str(easting), str(northing), ende, endn])
                 route = read_route()
-                print('\n\nsroute ', route)
+                print('\n\nroute ', route)
+                self.bs_coords = []
+                for x in route:
+                    if x[0] != 'Journey time':
+                        # self.bs_coords.append((x[2],x[3]))
+                        # print('\n x', x)
+                        rez = requests.get('http://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc?method=BNGtoLatLng&easting='+x[2]+'&northing='+x[3])
+                        d = json.loads(rez.text)
+                        lat = float(d['LATITUDE'])
+                        lon = float(d['LONGITUDE'])
+                        self.bs_coords.append((lat,lon))
+                # self.bs_coords = [(x[2],x[3]) for x in route]
+                self.map.set_path(self.bs_coords)
                 print('\n\nstart', easting, northing,'end', ende, endn)
 
     def moveUp(self, event):
@@ -136,16 +152,11 @@ class AutocompleteEntry(Entry):
                 self.listbox.activate(index) 
 
     def comparison(self):
-        # print(self.var.get())
         self.res = autocomplete(self.var.get())
         if self.res == '':
             prediction_list = self.res
         else:
             prediction_list = [self.res[0]['address']]
-        
-        
-        
-
         return prediction_list
         # return [ w for w in self.autocompleteList if self.matchesFunction(self.var.get(), w) ]
 
@@ -156,22 +167,18 @@ if __name__ == '__main__':
         return re.match(pattern, acListEntry)
     
     root = Tk()
-    
-    entry = AutocompleteEntry(autocompleteList, root, listboxLength=6, width=32, matchesFunction=matches)
-    entry.grid(row=0, column=0)
+    l = Label().grid(column=0)
+    m = tkintermapview.TkinterMapView(l, width=800, height=600)
+    m.set_position(51.475331432, -0.170165986)
 
-    # l = LabelFrame(root, text='YOOOOO').grid(column=0)
-    # # l.pack(pady=20)
+    entry = AutocompleteEntry(m, autocompleteList, root, listboxLength=6, width=32, matchesFunction=matches)
+    entry.grid(row=0, column=0)
+    m.grid(column=0)
+    # m.set_path([(51.475331432, -0.170165986),(51.482719,-0.174342),(51.489049,-0.164969),(51.495840,-0.152248) ])
+    print('bs', entry.bs_coords)
+    if entry.bs_coords != []:
+        path = m.set_path(entry.bs_coords)
+    # m.set_position(48.86, 2.338)
     
-    # m.pack()
-    l = Label(text='YOOOOO').grid(column=0)
-    m = tkintermapview.TkinterMapView(l).grid(column=0)
-    
-    Button(text='Python').grid(column=0)
-    Button(text='Tkinter').grid(column=0)
-    Button(text='Regular Expressions').grid(column=0)
-    Button(text='Fixed bugs').grid(column=0)
-    Button(text='New features').grid(column=0)
-    Button(text='Check code comments').grid(column=0)
     
     root.mainloop()
