@@ -30,7 +30,6 @@ void print_busstops(bucket * hashtable[], int DICT_SIZE)
         printf("buses:   ");
         print_buses_at_busstop(hashtable[i]->b->bus_list, 20);
         printf("\n");
-        // print neighbours to-do
         printf("northling: %i\n", hashtable[i]->b->northing);
         printf("easting: %i\n", hashtable[i]->b->easting);
     }
@@ -60,7 +59,7 @@ void print_bucket(bucket* buck)
         return;
     }
     if (buck->b == NULL) {
-        printf("\nOHHH\n");
+        
     }
     printf("\t%s", buck->b->name);
     print_bucket(buck->next);
@@ -127,20 +126,15 @@ int add_neighbour(
     while ( (strcmp((*bnext)->b->name, bsnamenext) != 0) || (seq_loce_next != (*bnext)->b->easting) || (seq_locn_next != (*bnext)->b->northing)) {
         *bnext = (*bnext)->next;
         if (*bnext == NULL) {
-            // printf("BNEXT NOT FOUND -- %s!\n", bsnamenext);
             return -2;
         }
     }
     while ( (strcmp((*b)->b->name, bsname) != 0) || (seq_loce != (*b)->b->easting) || (seq_locn != (*b)->b->northing)) {
-        
-        
         *b = (*b)->next;
         if (*b == NULL) {
-            // printf("B NOT FOUND -- %s!\n", bsname);
             return -1;
         }
     }
-    
     
     if (bgraph[(*b)->b->id] == NULL) {
         bgraph[(*b)->b->id] = malloc(sizeof(neighbour));
@@ -159,14 +153,8 @@ int add_neighbour(
         n->next->time = dt;
         n->next->next = NULL;
         n->next->node = (*bnext)->b;
-        // if (strcmp(bsname, "WATERLOO ROAD") == 0 || strcmp(bsnamenext, "WATERLOO ROAD") == 0) {
-        //     printf("\n\nFOUND %s e: %i  n: %i --> %s e: %i n: %i", bsname,(*b)->b->easting, (*b)->b->northing, bsnamenext, n->next->node->easting, n->next->node->northing );
-        //     printf("\n BUT TARGET e: %i n: %i next e: %i next n: %i", seq_loce, seq_locn, seq_loce_next, seq_locn_next);
-        // }
         return (*b)->b->id;
     } 
-     
-    
 }
 
 

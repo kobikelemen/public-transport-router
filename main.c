@@ -4,15 +4,15 @@
 #include <time.h>
 
 
-// changed one of MOORGATE STATION to LONDON WALL / MOORGATE STATION (next to LONDON WALL / MUSEUM OF LONDON for 100 bus) 
-
 
 int main(int argc, char **argv)
 {
+
     int starte;
     int startn;
     int ende;
     int endn;
+    
     if (argc > 1) {
         starte = atoi(argv[1]);
         startn = atoi(argv[2]);
@@ -52,16 +52,12 @@ int main(int argc, char **argv)
     read_file(len_routes, "bus_sequences/seq_location_e.txt", &seq_location_e, 0);
 
     bucket * busstop_hashtable[DICT_SIZE];
-
     bus_stop * busstop_array[num_busstops];
-
-    
 
     for (int i=0; i < DICT_SIZE; i++) {
         busstop_hashtable[i] = NULL;
     }
     int bytes = 0;
-
     int h = 0; 
     for (int i=0; i < num_busstops; i++) {  
         bus_stop *bs = malloc(sizeof(bus_stop));
@@ -70,11 +66,9 @@ int main(int argc, char **argv)
         bs->name = busstop_names[i];
         bs->id = i;
         busstop_array[i] = bs;
-        
         for (int n=0; n< 10; n++) {
-            (bs->bus_list)[n] = 0; // init array of buses at busstop to 0s
+            (bs->bus_list)[n] = 0;
         }
-
         bucket * buck = malloc(sizeof(bucket));
         bytes += sizeof(bucket);
         buck->b = bs;
@@ -89,27 +83,13 @@ int main(int argc, char **argv)
     }
 
 
-    
-    for (int n = 0; n < 10; n++) {
-        if (busstop_hashtable[n] != NULL ) {
-            printf("%s:  ", busstop_hashtable[n]->b->name);
-            for (int p=0; p < 20; p++) {
-                printf("\t%i", busstop_hashtable[n]->b->bus_list[p]);
-            }
-        printf("\n");   
-        }
-    }
-
     neighbour* bus_graph[num_busstops]; // adjacency list 
 
     for (int i=0; i < num_busstops; i ++ ) {
         bus_graph[i] = NULL;
     }
 
-
     int j=0;
-    
-    // while (j < 58072) {
     while (j < 41228){
         int num_busj = 0;
         while (atoi(sequences[j+num_busj+1]) > atoi(sequences[j+num_busj])) {
@@ -119,20 +99,15 @@ int main(int argc, char **argv)
         char s[100] = "data_processing/bus_times/";
         strcat(s, routes[j]);
         strcat(s, "dt.txt");
-
-
-        // build graph
-
-        srand( time(NULL) );
         
+        // build graph
+        srand( time(NULL) );
         for (int i=j; i < j+num_busj; i ++ ) {
 
                 int h = hash(busstop_names_routes[i], DICT_SIZE, MAX_WORD);
                 int hnext = hash(busstop_names_routes[i+1], DICT_SIZE, MAX_WORD);
                 bucket * buk = busstop_hashtable[h];
                 bucket * buknext = busstop_hashtable[hnext];
-                
-                // printf("\n %s --> %s",busstop_names_routes[i], busstop_names_routes[i+1]);
                 int id = add_neighbour(
                     bus_graph, &buk, &buknext, routes[i], 1.5, busstop_names_routes[i], busstop_names_routes[i+1],
                      atoi(seq_location_n[i]), atoi(seq_location_e[i]), atoi(seq_location_n[i+1]), atoi(seq_location_e[i+1])
@@ -146,15 +121,11 @@ int main(int argc, char **argv)
                         );
                     i++;
                 }
-
         }   
         j += num_busj + 1;
 
     }
 
-
-    //dijkstras(530000, 181430, 535460, 179490, bus_graph, busstop_array, num_busstops);
-    // dijkstras(527278, 176916,531917, 172263, bus_graph, busstop_array, num_busstops);
     dijkstras(starte, startn, ende, endn, bus_graph, busstop_array, num_busstops);
 
 }

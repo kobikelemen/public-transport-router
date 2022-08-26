@@ -54,7 +54,6 @@ int read_file(int num_lines, char * filename, char *(*text[]), int capital)
     int i = 0;
     while (fgets(buffer, MAX_LEN, fp))
     {
-        // Remove trailing newline
         buffer[strcspn(buffer, "\n")] = 0;
         text[i] = malloc(MAX_LEN);
         strcpy(text[i], buffer);

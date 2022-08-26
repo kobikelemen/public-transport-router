@@ -1,7 +1,6 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/kobikelemen/Documents/computing/coding/c++/public-transport-router'
 gcc -g -Wall -O0   -c -o main.o main.c
- 
 gcc -g -Wall -O0   -c -o bus_network.o bus_network.c
 gcc -g -Wall -O0   -c -o useful.o useful.c
  
