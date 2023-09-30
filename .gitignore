@@ -1,3 +1,4 @@
 .vscode/
 main.dSYM/
 test.dSYM/
+.DS_Store
